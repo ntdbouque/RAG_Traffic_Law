@@ -40,23 +40,3 @@ class BaseVectorDatabase(ABC):
         '''
         pass
 
-    @abstractmethod
-    def add_vector(
-        self, 
-        collection_name: str,
-        vector_id: str,
-        vector: List[float],
-        payload: Dict[str, Any],
-    ):
-        '''
-        Add a vector to the collection
-
-        Args:
-            collection_name (str): Collection name to add
-            vector_id (str): vector ID
-            vector (List[Float]): vector embedding
-            payload (Dict[str, Any]): Metadata of the vector
-        '''
-
-        pass
-    
