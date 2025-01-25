@@ -81,36 +81,6 @@ class QdrantVectorDatabase(BaseVectorDatabase):
                 ),
             )
 
-    def add_vector(
-        self,
-        collection_name: str,
-        vector_id: str,
-        vector: List[Float],
-        payload: QdrantPayload,
-    ):
-        '''
-        Add a vector to the collection
-
-        Args:
-            collection_name (str): collection name to add
-            vector_id (str): Vector ID
-            vector (List[float]): vector embedding
-            payload (QdrantPayload): Payload for the vector
-        '''
-        if not self.check_collection_exists(collection_name):
-            self.create_collection(collection_name, len(vector))
-        
-        self.client.upsert(
-            collection_name = collection_name,
-            points=[
-                models.PointStruct(
-                    id=vector_id,
-                    payload=payload.model_dump(),
-                    vector=vector
-                )
-            ]
-        )
-
     def add_vectors(
         self,
         collection_name: str,
@@ -140,37 +110,6 @@ class QdrantVectorDatabase(BaseVectorDatabase):
         ]
         
         self.client.upsert(collection_name=collection_name, points=points)
-        
-    def delete_vector(self, collection_name: str, document_id:str | UUID):
-        '''
-        Delete a vector from the collection 
-
-        Args:
-            collection_name (str)
-            document_id (str|UUID
-        '''
-        document_id = str(document_id)
-        if not self.check_collection_exists(collection_name):
-            logger.debug(f"Collection {collection_name} does not exist")
-            return
-
-        logger.debug(
-            "collection_name: %s - document_id: %s", collection_name, document_id
-        )
-
-        self.client.delete(
-            collection_name,
-            point_selector=models.FilterSelector(
-                filter=models.Filter(
-                    must=[
-                        models.FilterSelector(
-                            key='document_id',
-                            match=models.MatchValue(value=document_id)
-                        )
-                    ]
-                )
-            )
-        )
 
     def delete_collection(self, collection_name: str):
         """
