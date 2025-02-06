@@ -1,13 +1,12 @@
 """
 Author: Nguyen Truong Duy
 Purpose: định nghĩa lớp QdrantVectorDatabase kế thừa từ lớp BaseVectorDatabase, gồm các phương thức:
-- kiểm tra kết nối Qdrant Server
-- kiểm tra sự tồn tại của collection
-- tạo collection
-- thêm vector
-- thêm nhiều vector
-- xoá vector
-- xoá collection
+    - kiểm tra kết nối Qdrant Server
+    - kiểm tra sự tồn tại của collection
+    - tạo collection
+    - thêm nhiều vector
+    - xoá collection
+Latest Update: 27/01/2025
 """
 from qdrant_client.http import models
 from qdrant_client import QdrantClient
