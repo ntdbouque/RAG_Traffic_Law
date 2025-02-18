@@ -1,12 +1,22 @@
 '''
 Author: Nguyen Truong Duy
 Purpose: Building ElasticSearch Database
-Lastest Update: 27/01/2025
+- Adding test case
+Lastest Update: 10/02/2025
 '''
 
+import sys
+import os
+from pathlib import Path
+from icecream import ic
+sys.path.append(str(Path(__file__).parent.parent.parent))
+
 from elasticsearch.helpers import bulk
-from elastisearch import ElasticSearch
+from elasticsearch import Elasticsearch
 from llama_index.core.bridge.pydantic import Field
+
+from source.database.base import BaseVectorDatabase
+from source.schemas import ElasticSearchResponse
 
 class ElasticSearch(BaseVectorDatabase):
     '''
@@ -23,11 +33,37 @@ class ElasticSearch(BaseVectorDatabase):
             index_name(str): Name of the index used to be created for contextual RAG
         '''
 
-        self.es_client = ElasticSearch(url)
+        self.es_client = Elasticsearch(url)
         self.index_name = index_name
-        self.create_index()
+        if self.test_connection():
+            if self.check_collection_exists():
+                ic(f'Collection {self.index_name} have existed')
+            else:
+                self.create_collection()
+                ic(f'Collection {self.index_name} is created')
 
-    def create_index(self):
+        else:
+            ic('Can not connect to ElasticSearch server')
+
+    def check_collection_exists(self):
+        '''
+        Check whether a specified collection existed
+
+        Return: 
+            boolean: True if existed and False if did not existed
+        '''
+        return self.es_client.indices.exists(index=self.index_name)
+    
+    def test_connection(self):
+        '''
+        Test the connection to ElasticSearch server
+
+        Return:
+            boolean: True if successfully connect and False if unsuccessfully connect
+        '''
+        return self.es_client.ping()
+
+    def create_collection(self):
         '''
         Create the index for contextual RAG from provided index name
         '''
@@ -38,45 +74,32 @@ class ElasticSearch(BaseVectorDatabase):
                 'similarity': {'default': {'type': 'BM25'}},
                 'index.queries.cache.enabled': False
             },
-            'mapping': {
-                'properties': {
-                    'content': {'type': 'text', 'analyzer': 'english'},
-                    'contextual_content': {'type': 'text', 'analyzer': 'english'},
-                    'doc_id': {'type': 'text', 'index': False}
+            "mappings": {
+                "properties": {
+                    "content": {"type": "text", "analyzer": "english"},
+                    "contextualized_content": {"type": "text", "analyzer": "english"},
+                    "doc_id": {"type": "text", "index": False},
                 }
-            }
+            },
         }
 
-        if not self.es.client.indices.exists(index = self.index_name):
+        if not self.es_client.indices.exists(index = self.index_name):
             self.es_client.indices.create(index=self.index_name, body = index_setting)
 
 
-    def index_document(self, documents_metadata: List[DocumentMetadata]) -> bool:
+    def index_document(self, actions) -> bool:
         '''
         Index the documents to the ElasticSearch Server
 
         Args:
-            - document_metadata (List[DocumentMetadata]): list of document metadata to index
+            - actions: list of actions
         '''
-        documents_metadata = []
-        actions = [
-            {
-                '_index': self.index_name,
-                '_source': {
-                    'doc_id': metadata.metadata['doc_id'],
-                    'original_content': metadata.metadata['original_content'],
-                    'contextual_content:': metadata.metadata['contextual_content']
-                }
-            }
-            for metadata in documents_metadata
-        ]
-
         success, _ = bulk(self.es_client, actions)
 
         self.es_client.indices.refresh(index = self.index_name)
         return success
 
-    def search(self, query: str, k: int = 20) -> List[ElasticSearchResponse]:
+    def search(self, query: str, k: int = 20) -> list[ElasticSearchResponse]:
         '''
         Search the documents relevant to the query
 
@@ -107,3 +130,11 @@ class ElasticSearch(BaseVectorDatabase):
             )
             for hit in response['hits']['hits']
         ]
+
+if __name__ == '__main__':
+    from source.settings import setting
+    ic(setting)
+    
+    es = ElasticSearch(
+        url=setting.elastic_search_url, index_name=setting.elastic_search_index_name
+    )

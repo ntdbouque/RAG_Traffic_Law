@@ -1,10 +1,24 @@
 '''
 Author: Nguyen Truong Duy
-Purpose: Usage function in reading documents
-Latest Update: 27/01/2025
+Purpose: 
+    + Kiểm tra file extension được hỗ trợ
+    + Lấy tất cả những valid file từ folder đưa vào
+Latest Update: 06/02/2025
 '''
+import os
+import sys
+from icecream import ic
+from pathlib import Path
+from dotenv import load_dotenv
+from typing import Union
 
-def check_valid_extension(file_path: str | Path) -> bool:
+sys.path.append(str(Path(__file__).parent.parent.parent))
+from source.constants import SUPPORTED_FILE_EXTENSIONS
+from llama_index.readers.llama_parse import LlamaParse
+
+load_dotenv()
+
+def check_valid_extension(file_path: Union[str, Path]) -> bool:
     '''
     Check if the file extension is supported
 
@@ -15,8 +29,7 @@ def check_valid_extension(file_path: str | Path) -> bool:
     '''
     return Path(file_path).suffix in SUPPORTED_FILE_EXTENSIONS
 
-
-def get_files_from_folders(folder_dir: str) -> list[str]:
+def get_files_from_folder(folder_dir: str) -> list[str]:
     '''
     Get valid files from folder directory
 
@@ -29,22 +42,23 @@ def get_files_from_folders(folder_dir: str) -> list[str]:
     files = []
 
     if Path(folder_dir).is_dir():
-        files.extend(
-            [
-                str(file_path.resolve())
-                for file_path in Path(folder_dir).rglob('*')
-                if check_valid_extension(file_path) 
-            ]
-        )
+        for file_path in Path(folder_dir).rglob('*'):
+            if check_valid_extension(file_path):
+                files.append(str(file_path.resolve()))
 
     return files
 
 def get_extractor():
     return {
-        '.pdf': LLamaParse(
+        '.pdf': LlamaParse(
             result_type = 'markdown', api_key = os.getenv('LLAMA_PARSE_API_KEY'),
-            split_by_page = 'False',
-            continous_mode = True,
+            split_by_page = False,
+            num_workers = 9,
             max_pages = 10
         )
     }
+
+if __name__ == '__main__':
+    folder_dir = r'C:\Users\duy\Desktop\TrafficLaw\sample'
+    files = get_files_from_folders(folder_dir)
+    print(files)

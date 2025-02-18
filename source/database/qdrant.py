@@ -27,7 +27,9 @@ from tenacity import (
     retry_if_exception_type
 )
 
-from base import BaseVectorDatabase
+from source.database.base import BaseVectorDatabase
+from source.schemas import QdrantPayload
+
 
 logger = logging.getLogger(__file__)
 
