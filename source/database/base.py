@@ -4,8 +4,7 @@ Purpose: Định nghĩa một lớp BaseVectorDatabase, sử dụng module ABC t
 Giúp xây dựng một chuẩn chung cho các vector database, bao gồm:
     - kiểm tra tính tồn tại của collection,
     - kiểm tra kết nối đến server, 
-    - tạo collection, 
-    - thêm một vector vào collection
+    - tạo collection,
 '''
 
 from abc import ABC, abstractmethod

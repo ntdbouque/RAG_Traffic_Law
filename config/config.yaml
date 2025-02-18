@@ -1,0 +1,26 @@
+MODEL:
+    TEMPERATURE: 0.2
+    STREAM: True
+
+    MODEL_ID: gpt-4o-mini
+
+    EMBEDDING_MODEL: text-embedding-ada-002
+
+CONTEXTUAL_RAG:
+    CHUNK_SIZE: 1024
+    MODEL: "gpt-4o-mini"
+
+    ORIGIN_RAG_COLLECTION_NAME: "origin_rag_test"
+    CONTEXTUAL_RAG_COLLECTION_NAME: "contextual_rag_test"
+
+    QDRANT_URL: "http://localhost:6333"
+
+    ELASTIC_SEARCH_URL: "http://localhost:9200"
+    ELASTIC_SEARCH_INDEX_NAME: "contextual_rag_test"
+
+    NUM_CHUNKS_TO_RECALL: 20
+
+    SEMANTIC_WEIGHT: 0.8
+    BM25_WEIGHT: 0.2
+
+    TOP_N: 3

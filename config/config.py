@@ -1,3 +1,9 @@
+'''
+Author: Nguyen Truong Duy
+Purpose: Create a YamlParser class for read yaml file config and merge yaml file config
+Latest Update: 06/02/2025
+'''
+
 import os
 import yaml
 from easydict import EasyDict as edict
@@ -18,3 +24,17 @@ class YamlParser(edict):
 
         super(YamlParser, self).__init__(cfg_dict)
         
+    def merge_from_file(self, config_file):
+        with open(config_file, 'r') as fo:
+            self.update(yaml.load(fo.read(), Loader=yaml.FullLoader))
+
+    def merge_from_dict(self, config_dict):
+        self.update(config_dict)
+
+def get_config(config_file=None):
+    return YamlParser(config_file=config_file)
+
+if __name__ == '__main__':
+    config_file = r'C:\Users\duy\Desktop\TrafficLaw\config\config.yaml'
+    cfg = get_config(config_file)
+    print(cfg)
