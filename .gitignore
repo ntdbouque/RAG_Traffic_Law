@@ -1,11 +1,3 @@
-*.log
-*.pyc
-/__pycache__/
-/.vscode/
-/AppData/
-/Local Settings/
-/Documents/
-/Downloads/
-*.mp4
-/Desktop.ini
 .env
+sample
+help.txt

@@ -16,7 +16,6 @@ from dotenv import load_dotenv
 
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
-
 from llama_index.llms.openai import OpenAI
 from llama_index.core.extractors.metadata_extractors import KeywordExtractor
 from llama_index.llms.openai import OpenAI
@@ -25,7 +24,7 @@ from llama_index.vector_stores.qdrant import QdrantVectorStore
 from llama_index.core.llms import ChatMessage
 from llama_index.core.async_utils import asyncio_run
 from typing import Literal, Sequence
-
+from source.reader.llama_parse_reader import parse_multiple_files
 from source.database.elastic import ElasticSearch
 from source.database.qdrant import QdrantVectorDatabase
 from llama_index.core.llms.function_calling import FunctionCallingLLM
@@ -51,7 +50,7 @@ from source.constants import (
 
 from source.settings import Settings as setting
 from source.reader.section_reader import split_documents
-from source.reader.llama_parse_reader import parse_multiple_files
+
 
 class DocumentIngestionPipeline:
     '''
@@ -184,7 +183,7 @@ class DocumentIngestionPipeline:
                 ),
             )
 
-            return documents, documents_metadata
+        return documents, documents_metadata
 
     def get_contextual_documents(self, splitted_chapters: list[Document], splitted_articles: list[list[Document]]):
         '''
@@ -198,21 +197,21 @@ class DocumentIngestionPipeline:
             list[Document]: used for ingest Qdrant Server
             list[DocumentMetadata]: used for ingest ElasticSearch Server 
         '''
-
+        chapter_id = 0
         documents: list[Document] = []
         documents_metadata: list[DocumentMetadata] = []
 
         for chapter, articles in tqdm(
-            zip(splitted_chapters, splitted_articles),
-            desc='Adding contextual content ...',
-            total=len(splitted_chapters)
+            zip(splitted_chapters, splitted_articles), #change len split-chap to split-art
+            desc='Adding contextual content for each document...',
+            total=len(splitted_articles)
         ):
-            chapter_id = 0
             chapter_uuid = str(uuid.uuid4())
             document, metadata = self.add_contextual_content(chapter, articles, chapter_id, chapter_uuid)
 
             documents.extend(document)
             documents_metadata.extend(metadata)
+            ic(documents)
 
             chapter_id += 1
 
@@ -231,14 +230,13 @@ class DocumentIngestionPipeline:
             type (str): mode to ingest, origin or contextual
             
         '''
-        documents_metadata = []
         actions = [
             {
-                '_index': self.index_name,
+                '_index': self.setting.elastic_search_index_name,
                 '_source': {
-                    'doc_id': metadata.metadata['doc_id'],
-                    'original_content': metadata.metadata['original_content'],
-                    'contextual_content:': metadata.metadata['contextual_content']
+                    'doc_id': metadata.article_uuid,
+                    'original_content': metadata.article_content,
+                    'contextual_content': metadata.contextualized_article_content
                 }
             }
             for metadata in documents_metadata
@@ -261,14 +259,14 @@ class DocumentIngestionPipeline:
             
         '''
 
-        vectors = [self.get_embedding(doc.text) for doc in tqdm(documents)]
+        vectors = [self.get_embedding(doc.text) for doc in tqdm(documents, desc='Getting embeddings ...')]
         payloads = [
             QdrantPayload(
                 chapter_uuid = doc.metadata['chapter_uuid'],
-                new_chunk = doc.text,
+                text = doc.text,
                 article_uuid = doc.metadata['article_uuid']
             )
-            for doc in tqdm(documents)
+            for doc in documents
         ]
 
         self.qdrant_client.add_vectors(
@@ -281,7 +279,7 @@ class DocumentIngestionPipeline:
     def run_ingest(
         self,
         folder_dir: str,
-        type: Literal['origin, contextual', 'both'] = 'contextual'
+        type: Literal['origin', 'contextual', 'both'] = 'contextual'
     ) -> None:
         '''
         Run the ingest process for Retrieval Augmented Generation System
@@ -292,8 +290,10 @@ class DocumentIngestionPipeline:
         '''
 
         raw_documents = parse_multiple_files(folder_dir)
-
+        ic(len(raw_documents))
         splitted_chapters, splitted_articles = split_documents(self.keyword_extractor, raw_documents) 
+        
+        ic(len(splitted_chapters), len(splitted_articles))
         contextual_documents, contextual_documents_metadata = (
             self.get_contextual_documents(splitted_chapters, splitted_articles)
         )
@@ -301,5 +301,4 @@ class DocumentIngestionPipeline:
         # Ingest data to Vector DB
         self.ingest_data_qdrant(contextual_documents)
         self.ingest_data_elastic(contextual_documents_metadata)
-
-
+    

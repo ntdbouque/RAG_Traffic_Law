@@ -54,7 +54,7 @@ def get_extractor():
             result_type = 'markdown', api_key = os.getenv('LLAMA_PARSE_API_KEY'),
             split_by_page = False,
             num_workers = 9,
-            max_pages = 10
+            max_pages = 100,
         )
     }
 

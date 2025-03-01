@@ -6,7 +6,7 @@ Purpose: định nghĩa lớp QdrantVectorDatabase kế thừa từ lớp BaseVe
     - tạo collection
     - thêm nhiều vector
     - xoá collection
-Latest Update: 27/01/2025
+Latest Update: 18/02/2025
 """
 from qdrant_client.http import models
 from qdrant_client import QdrantClient
@@ -14,6 +14,7 @@ from qdrant_client.http.exceptions import ResponseHandlingException
 
 import sys
 from pathlib import Path
+from icecream import ic
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
 from typing import List, Dict, Any
@@ -67,6 +68,7 @@ class QdrantVectorDatabase(BaseVectorDatabase):
     def create_collection(self, collection_name: str, vector_size: int):
         if not self.check_collection_exists(collection_name):
             logger.info(f'Creating Collection {collection_name}')
+            ic(vector_size)
             self.client.create_collection(
                 collection_name, 
                 vectors_config=models.VectorParams(
@@ -81,6 +83,20 @@ class QdrantVectorDatabase(BaseVectorDatabase):
                     binary=models.BinaryQuantizationConfig(always_ram=True),
                 ),
             )
+    def get_collection_info(self, collection_name: str = None):
+        if collection_name:
+            return self.client.get_collection(collection_name)
+        else:
+            return self.client.get_collections()
+    
+    def delete_collection(self, collection_name: str=None):
+        if collection_name:
+            self.client.delete_collection(collection_name)
+        else:
+            collections = self.client.get_collections().collections
+            for collection in collections:
+                self.client.delete_collection(collection.name)
+                logger.info(f"Deleted collection: {collection.name}")
 
     def add_vectors(
         self,
@@ -129,7 +145,8 @@ class QdrantVectorDatabase(BaseVectorDatabase):
             logger.debug(f"Collection {collection_name} deleted successfully!")
 
     
-if __name__ == '__main__':
+if __name__ == '__main__':  
+    from icecream import ic
     url = "http://localhost:6333"
     db = QdrantVectorDatabase(url)
-    
+    #ic(db.get_collection_info(collection_name='contextual_rag_test'))

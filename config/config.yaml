@@ -11,12 +11,12 @@ CONTEXTUAL_RAG:
     MODEL: "gpt-4o-mini"
 
     ORIGIN_RAG_COLLECTION_NAME: "origin_rag_test"
-    CONTEXTUAL_RAG_COLLECTION_NAME: "contextual_rag_test"
+    CONTEXTUAL_RAG_COLLECTION_NAME: "contextual_rag_test2"
 
     QDRANT_URL: "http://localhost:6333"
 
     ELASTIC_SEARCH_URL: "http://localhost:9200"
-    ELASTIC_SEARCH_INDEX_NAME: "contextual_rag_test"
+    ELASTIC_SEARCH_INDEX_NAME: "contextual_rag_test2"
 
     NUM_CHUNKS_TO_RECALL: 20
 

@@ -1,8 +1,8 @@
 import sys
 import argparse
 from pathlib import Path
-
 sys.path.append(str(Path(__file__).parent.parent.parent))
+from source.reader.llama_parse_reader import parse_multiple_files
 
 from source.rag.ingest import DocumentIngestionPipeline
 from source.settings import setting
@@ -19,6 +19,7 @@ def load_parser():
     
     parser.add_argument(
         "--ingest_type",
+        type=str,
         choices=["origin", "contextual", "both"],
         default='both'
     )

@@ -2,7 +2,7 @@
 Author: Nguyen Truong Duy
 Purpose: Building ElasticSearch Database
 - Adding test case
-Lastest Update: 10/02/2025
+Lastest Update: 18/02/2025
 '''
 
 import sys
@@ -45,6 +45,31 @@ class ElasticSearch(BaseVectorDatabase):
         else:
             ic('Can not connect to ElasticSearch server')
 
+    def get_collection_info(self, collection_name:str = None):
+        '''
+        Get the information of the collection
+
+        Args:
+            collection_name(str): Name of the collection
+
+        Return:
+            dict: Information of the collection
+        '''
+        if collection_name:
+            return self.es_client.indices.get(index=collection_name)
+        else:
+            return self.es_client.indices.get(index="_all")
+
+    def delete_collection(self, collection_name=None):
+        if collection_name:
+            self.es_client.indices.delete(index=collection_name)
+        else:
+            indices = self.es_client.cat.indices(format="json")
+            for index in indices:
+                self.es_client.indices.delete(index=index["index"])
+                print(f"Deleted index: {index['index']}")
+
+    
     def check_collection_exists(self):
         '''
         Check whether a specified collection existed
@@ -114,7 +139,7 @@ class ElasticSearch(BaseVectorDatabase):
             'query':{
                 'multi_match':{
                     'query': query,
-                    'field': ['original_content', 'contextualize_content'],
+                    'fields': ['original_content', 'contextual_content'],
                 }
             },
             'size': k

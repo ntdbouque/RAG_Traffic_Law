@@ -7,6 +7,7 @@ Latest Update: 09/02/2025
 import os
 import re
 from llama_index.core.schema import TextNode
+from typing import List, Tuple
 import sys
 from pathlib import Path
 import json
@@ -24,6 +25,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+import fitz  
+
 def pre_process(lst_lines: list[str]) -> list[str]:
     '''
     Preprocess list of lines, include convert to lower case, remove blank lines, remove page break,
@@ -32,21 +35,25 @@ def pre_process(lst_lines: list[str]) -> list[str]:
     Args:
         lst_lines (List[str]): A list of lines in document is preprocessed 
     '''
-    # lower case
     lst_lines= [line.lower() for line in lst_lines]
-    
-    # remove blank lines
     lst_lines = [line.strip() for line in lst_lines if line.strip()]
-    
-    # remove page break
     lst_lines = [line for line in lst_lines if not re.match(r'^-{3,}$', line)]
     
-    # remove special character without heading
+    seen_articles = set()
+    for i, line in enumerate(lst_lines):
+        match = re.match(r"^điều\s+(\d+)", line, re.IGNORECASE)
+        if match:
+            article_number = match.group(1)  
+            if article_number in seen_articles:
+                continue  
+            seen_articles.add(article_number)
+            lst_lines[i] = "# " + line  
+        elif "điều" in line and not re.search(r"^điều\s+\d+", line, re.IGNORECASE):
+            continue 
     for i, line in enumerate(lst_lines):
         if not any(f'# {special_case}' in line for special_case in SPECIAL_CASE) and line.startswith('#'):
             lst_lines[i] = line.replace('#', '').strip()
     
-    # format chapter
     formated_lines = []
     i = 0
     while i < len(lst_lines):
@@ -61,7 +68,6 @@ def pre_process(lst_lines: list[str]) -> list[str]:
         else:
             formated_lines.append(line)
         i += 1
-
     return formated_lines
 
 def extract_document_metadata(metadata_extractor, lst_lines):
@@ -139,6 +145,7 @@ def extract_article_indices(chapter_lines):
     for i, line in enumerate(chapter_lines):
         if re.match(pattern, line):
             article_indices.append(i)
+    ic(article_indices)        
     return article_indices
 
 def extract_article_contents(chapter_lines, article_indices):
@@ -174,21 +181,20 @@ def split_documents(extractor, raw_documents):
 
     splitted_articles = []
     splitted_chapters = []
-    for doc in raw_documents: # duyệt 
+    for doc in raw_documents:  
         lst_lines = doc.text.split('\n')
-        
-        lst_lines = pre_process(lst_lines) # step 2
+        lst_lines = pre_process(lst_lines) 
             
-        chapter_indices = extract_chapter_indices(lst_lines)  # step 3.2
+        chapter_indices = extract_chapter_indices(lst_lines) 
         
-        document_metadata = extract_document_metadata(extractor, lst_lines) # step 3.1
+        document_metadata = extract_document_metadata(extractor, lst_lines) 
         
-        document_content = extract_chapter_content(lst_lines, chapter_indices) # step 4
+        document_content = extract_chapter_content(lst_lines, chapter_indices) 
         
         metadata = {}
         metadata['title'] = document_metadata['Tiêu đề']
         
-        for chapter_title, chapter_content in document_content.items(): # loop chapter
+        for chapter_title, chapter_content in document_content.items(): 
             chapter_metadata = deepcopy(metadata)
             chapter_metadata['chapter_title'] = chapter_title
             lst_chapter = []
@@ -202,7 +208,7 @@ def split_documents(extractor, raw_documents):
                 )
             )
     
-            for article_title, article_content in chapter_content.items(): # loop article
+            for article_title, article_content in chapter_content.items():
                 article_metadata = deepcopy(metadata)
                 article_metadata['chapter_title'] = chapter_title
                 article_metadata['article_title'] = article_title
@@ -215,11 +221,134 @@ def split_documents(extractor, raw_documents):
                 
             splitted_articles.append(lst_chapter)         
     return splitted_chapters, splitted_articles
+
     
+################# --- TEST PDF PARSE --- #################
+def read_pdf_to_text(pdf_path: str) -> list[str]:
+    """
+    Read text from a PDF file and return as a list of lines.
+    """
+    doc = fitz.open(pdf_path)
+    lines = []
+    for page in doc:
+        text = page.get_text("textblocks")  
+        lines.extend(text.split("\n"))
+    return lines
+
+def convert_to_markdown(lines: list[str]) -> str:
+    """
+    Convert preprocessed text lines to Markdown format, handling both chapters and articles.
+    
+    Args:
+        lines (list[str]): List of text lines from a legal document.
+
+    Returns:
+        str: Markdown formatted text.
+    """
+    markdown_lines = []
+    lines= [line.lower() for line in lines]
+    for i, line in enumerate(lines):
+        chapter_match = re.match(r"^(Chương\s+[IVXLCDM]+)(\.?)\s*(.*)", line, re.IGNORECASE)
+        if chapter_match:
+            chapter_number, dot, chapter_title = chapter_match.groups()
+            if chapter_title.strip():
+                markdown_lines.append(f"# {chapter_number}: {chapter_title.strip()}") 
+            else:
+                markdown_lines.append(f"# {chapter_number}") 
+            continue  
+
+        article_match = re.match(r"^(Điều\s+\d+)(\.?)\s*(.*)", line, re.IGNORECASE)
+        if article_match:
+            article_number, dot, content = article_match.groups()
+            if dot and content.strip():  
+                markdown_lines.append(f"## {article_number}. {content.strip()}") 
+            elif dot:  
+                markdown_lines.append(f"## {article_number}.") 
+            else:  
+                markdown_lines.append(line) 
+            continue  
+        markdown_lines.append(line)
+
+    return "\n".join(markdown_lines)
+
+
+def parse_pdf(pdf_path: str, output_txt_path: str):
+    lines = read_pdf_to_text(pdf_path)
+    markdown_text = convert_to_markdown(lines)
+    with open(output_txt_path, "w", encoding="utf-8") as f:
+        f.write(markdown_text)
+
+def read_txt_to_lines(txt_path: str) -> list[str]:
+    """
+    Đọc tệp TXT và trả về danh sách các dòng văn bản.
+    """
+    with open(txt_path, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+    return [line.strip() for line in lines if line.strip()] 
+
+def split_docs(lines: list[str]):
+    """
+    Trích xuất danh sách các chương và điều luật từ văn bản.
+    
+    Trả về:
+        - splitted_chapters (list[Document]): Danh sách các chương
+        - splitted_articles (list[list[Document]]): Danh sách các điều luật theo chương
+    """
+    splitted_chapters = []
+    splitted_articles = []
+
+    current_chapter = None
+    current_chapter_articles = []
+    chapter_metadata = {}
+
+    for i, line in enumerate(lines):
+        chapter_match = re.match(r"^# (Chương\s+[IVXLCDM]+)", line, re.IGNORECASE)
+        article_match = re.match(r"^## (Điều\s+\d+)\.?\s*(.*)", line, re.IGNORECASE)
+
+        if chapter_match:  
+            if current_chapter:
+                splitted_chapters.append(Document(metadata=chapter_metadata, text=current_chapter))
+                splitted_articles.append(current_chapter_articles)
+
+            chapter_number = chapter_match.group(1)
+            chapter_title = lines[i + 1].strip() if (i + 1 < len(lines)) else ""
+
+            chapter_metadata = {"chapter_title": f"{chapter_number}: {chapter_title}"}
+            current_chapter = f"{chapter_number}: {chapter_title}" 
+            current_chapter_articles = []
+
+        elif article_match and current_chapter: 
+            article_number = article_match.group(1)
+            article_title = article_match.group(2).strip() if article_match.group(2) else ""
+
+            article_metadata = deepcopy(chapter_metadata)
+            article_metadata["article_title"] = f"{article_number}. {article_title}"
+
+            article_content = []
+            j = i + 1
+            while j < len(lines) and not lines[j].startswith("##"): 
+                article_content.append(lines[j])
+                j += 1
+
+            current_chapter_articles.append(Document(metadata=article_metadata, text="\n".join(article_content)))
+
+    if current_chapter:
+        splitted_chapters.append(Document(metadata=chapter_metadata, text=current_chapter))
+        splitted_articles.append(current_chapter_articles)
+
+    return splitted_chapters, splitted_articles
+
+def process_txt(txt_path: str):
+    """
+    Xử lý tệp TXT và trả về danh sách các chương và điều luật.
+    """
+    lines = read_txt_to_lines(txt_path)
+    return split_docs(lines)
+
+
 if __name__ == '__main__':
     from source.reader.llama_parse_reader import parse_multiple_files
-    raw_documents = parse_multiple_files(folder_dir=r'C:\Users\duy\Desktop\TrafficLaw\sample')
-
+    raw_documents = parse_multiple_files(folder_dir=r'/workspace/competitions/Sly/RAG_Traffic_Law/sample')# list[Document, Document]
 
     from llama_index.core.extractors.metadata_extractors import KeywordExtractor
     from llama_index.llms.openai import OpenAI
@@ -231,5 +360,35 @@ if __name__ == '__main__':
                                 prompt_template = METADATA_PROMPT
                         )
 
-    splitted_chapters, splitted_articles = split_documents(llm, metadata_extractor, raw_documents)
+    splitted_chapters, splitted_articles = split_documents(metadata_extractor, raw_documents)
     ic(splitted_articles)
+    output_file = "/workspace/competitions/Sly/RAG_Traffic_Law/sample/output2.txt"
+    with open(output_file, 'w') as f:
+        for articles in splitted_articles:
+            for article in articles:
+                f.write(f"{article.metadata['chapter_title']}\n")
+                f.write(f"{article.metadata['article_title']}\n")
+                f.write(f"{article.text}\n\n")
+    
+    
+    ### --- TEST PDF PARSE --- ###
+    # input_pdf = "/workspace/competitions/Sly/RAG_Traffic_Law/sample/23_2008_QH12_82203.pdf"  
+    # output_txt = "/workspace/competitions/Sly/RAG_Traffic_Law/sample/splitted_articles_2.txt"
+    # parse_pdf(input_pdf, output_txt)
+    # splitted_chapters, splitted_articles = process_txt(output_txt)
+    # ic(splitted_articles)
+    # output_split_chapter = "/workspace/competitions/Sly/RAG_Traffic_Law/sample/output_split_chapters_2.txt"
+    # with open(output_split_chapter, 'w') as f:
+    #     for articles in splitted_chapters:
+    #         f.write(f"{articles.metadata['chapter_title']}\n")
+    # output_split_article = "/workspace/competitions/Sly/RAG_Traffic_Law/sample/output_split_articles_2.txt"
+    # with open(output_split_article, 'w') as f:
+    #     for articles in splitted_articles:
+    #         for article in articles:
+    #             f.write(f"{article.metadata['chapter_title']}\n")
+    #             f.write(f"{article.metadata['article_title']}\n")
+    #             f.write(f"{article.text}\n\n")
+
+    
+    
+    

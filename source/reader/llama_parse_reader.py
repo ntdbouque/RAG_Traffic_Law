@@ -29,17 +29,17 @@ def parse_multiple_files(folder_dir: str) -> list[Document]:
     '''
 
     valid_files = get_files_from_folder(folder_dir)
-
+    ic(valid_files)
     file_extractor = get_extractor()
 
     documents = SimpleDirectoryReader(
         input_files = valid_files,
         file_extractor = file_extractor,
     ).load_data(show_progress=True)
-
+    
     return documents
 
-if __name__ == '__main__':
-    folder_dir = r'C:\Users\duy\Desktop\TrafficLaw\sample'
-    documents = parse_multiple_files(folder_dir)
-    print(documents)
+# if __name__ == '__main__':
+#     folder_dir = r'C:\Users\duy\Desktop\TrafficLaw\sample'
+#     documents = parse_multiple_files(folder_dir)
+#     print(documents)
