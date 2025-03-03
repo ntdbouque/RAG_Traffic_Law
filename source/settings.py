@@ -6,7 +6,9 @@ from source.constants import (
     BM25_WEIGHT,
     SEMANTIC_WEIGHT,
     EMBEDDING_MODEL,
+    SERVICE,
     CONTEXTUAL_MODEL,
+    CONTEXTUAL_SERVICE,
     ELASTIC_SEARCH_URL,
     NUM_CHUNKS_TO_RECALL,
     CONTEXTUAL_CHUNK_SIZE,
@@ -33,6 +35,11 @@ class Settings(BaseModel):
         top_n (int): Top n documents after reranking
     """
 
+    service: str = Field(description="The LLM service", default=SERVICE)
+    contextual_service: str = Field(
+        description="The contextual service", default=CONTEXTUAL_SERVICE
+    )
+    
     chunk_size: int = Field(description="The chunk size", default=CONTEXTUAL_CHUNK_SIZE)
 
     model_name: str = Field(description="The LLM model", default=CONTEXTUAL_MODEL)

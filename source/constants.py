@@ -4,12 +4,22 @@ cfg = get_config("config/config.yaml")
 
 # Generation model configuration
 STREAM = cfg.MODEL.STREAM
+SERVICE = cfg.MODEL.SERVICE
 TEMPERATURE = cfg.MODEL.TEMPERATURE
 MODEL_ID = cfg.MODEL.MODEL_ID
 
-EMBEDDING_MODEL = cfg.MODEL.EMBEDDING_MODEL
+QA_PROMPT = (
+    "We have provided context information below. \n"
+    "---------------------\n"
+    "{context_str}"
+    "\n---------------------\n"
+    "Given this information, please answer the question: {query_str}\n"
+)
 
-# Prompt configuration
+# Contextual RAG configuration
+EMBEDDING_MODEL = cfg.CONTEXTUAL_RAG.EMBEDDING_MODEL
+CONTEXTUAL_SERVICE = cfg.CONTEXTUAL_RAG.SERVICE
+
 CONTEXTUAL_PROMPT = """<document>
 {WHOLE_DOCUMENT}
 </document>
@@ -19,14 +29,6 @@ Bên dưới đây là {ARTICLE_TITLE} mà tôi muốn bạn đặt vào trong n
 {CHUNK_CONTENT}
 </chunk>
 Vui lòng cung cấp một bối cảnh ngắn gọn, súc tích để đặt đoạn nội dung này trong ngữ cảnh của toàn bộ tài liệu nhằm cải thiện khả năng tìm kiếm và truy xuất đoạn nội dung. Chỉ trả lời bằng bối cảnh ngắn gọn và không thêm nội dung khác."""
-
-QA_PROMPT = (
-    "We have provided context information below. \n"
-    "---------------------\n"
-    "{context_str}"
-    "\n---------------------\n"
-    "Given this information, please answer the question: {query_str}\n"
-)
 
 METADATA_PROMPT = '''
 Từ đoạn văn bản dưới đây, hãy trích xuất các thông tin sau một cách rõ ràng và chính xác:
@@ -48,10 +50,8 @@ Văn bản:
 - Địa điểm ban hành: [Địa điểm]
 '''
 
-# Document-level Configuration
 SPECIAL_CASE = ['phần', 'chương', 'mục', 'tiểu mục', 'điều']
 
-# Contextual RAG configuration
 CONTEXTUAL_CHUNK_SIZE = cfg.CONTEXTUAL_RAG.CHUNK_SIZE
 CONTEXTUAL_MODEL = cfg.CONTEXTUAL_RAG.MODEL
 
@@ -69,3 +69,5 @@ TOP_N = cfg.CONTEXTUAL_RAG.TOP_N
 
 SUPPORTED_FILE_EXTENSIONS = [".pdf"]
 
+# Agent configuration
+AGENT_TYPE = cfg.AGENT.TYPE
