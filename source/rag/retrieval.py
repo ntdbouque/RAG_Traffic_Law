@@ -254,6 +254,7 @@ class RetrievalPipeline():
         contexts = [n.node.text for n in retrieved_nodes]
         
         response  = self.generate_response(query, contexts)
+        ic(response)
         return response
     
 if __name__ == '__main__':

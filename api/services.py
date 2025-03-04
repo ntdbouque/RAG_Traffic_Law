@@ -127,12 +127,18 @@ class ChatbotTrafficLawRAG:
 
         if STREAM:
             streaming_response = self.query_engine.stream_chat(prompt)
+
+            async def async_generator():
+                for chunk in streaming_response.response_gen:
+                    yield chunk
+
             return StreamingResponse(
-                streaming_response.response_gen, 
+                async_generator(), 
                 media_type='application/text; charset=utf8'
-                ),
+            )
         else:
+            response = self.query_engine.chat(prompt)
             return Response(
-                self.query_engine.chat(prompt).response,
-                media_type = 'application/text; charset=utf8'
+                content=response.response,  
+                media_type="application/text; charset=utf8"
             )
