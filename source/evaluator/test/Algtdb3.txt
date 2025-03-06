@@ -1,0 +1,24 @@
+1. Trên đoạn đường bộ giao nhau cùng mức với đường sắt, cầu đường bộ đi chung với đường sắt,
+phương tiện giao thông đường sắt được quyền ưu tiên đi trước.
+2. Tại nơi đường bộ giao nhau cùng mức với đường sắt có đèn tín hiệu, rào chắn và chuông báo
+hiệu, khi đèn tín hiệu mầu đỏ đã bật sáng, có tiếng chuông báo hiệu, rào chắn đang dịch chuyển
+hoặc đã đóng, người tham gia giao thông đường bộ phải dừng lại phía phần đường của mình và
+cách rào chắn một khoảng cách an toàn; khi đèn tín hiệu đã tắt, rào chắn mở hết, tiếng chuông
+báo hiệu ngừng mới được đi qua.
+3. Tại nơi đường bộ giao nhau cùng mức với đường sắt chỉ có đèn tín hiệu hoặc chuông báo hiệu,
+khi đèn tín hiệu mầu đỏ đã bật sáng hoặc có tiếng chuông báo hiệu, người tham gia giao thông
+đường bộ phải dừng ngay lại và giữ khoảng cách tối thiểu 5 mét tính từ ray gần nhất; khi đèn tín
+hiệu đã tắt hoặc tiếng chuông báo hiệu ngừng mới được đi qua.
+4. Tại nơi đường bộ giao nhau cùng mức với đường sắt không có đèn tín hiệu, rào chắn và
+chuông báo hiệu, người tham gia giao thông đường bộ phải quan sát cả hai phía, khi thấy chắc
+chắn không có phương tiện đường sắt đang đi tới mới được đi qua, nếu thấy có phương tiệnđường sắt đang đi tới thì phải dừng lại và giữ khoảng cách tối thiểu 5 mét tính từ ray gần nhất và
+chỉ khi phương tiện đường sắt đã đi qua mới được đi.
+5. Khi phương tiện tham gia giao thông đường bộ bị hư hỏng tại nơi đường bộ giao nhau cùng
+mức với đường sắt hoặc trong phạm vi an toàn đường sắt thì người điều khiển phương tiện phải
+bằng mọi cách nhanh nhất đặt báo hiệu trên đường sắt cách tối thiểu 500 mét về hai phía để báo
+cho người điều khiển phương tiện đường sắt và tìm cách báo cho người quản lý đường sắt, nhà
+ga nơi gần nhất, đồng thời phải bằng mọi biện pháp nhanh chóng đưa phương tiện ra khỏi phạm
+vi an toàn đường sắt.
+6. Những người có mặt tại nơi phương tiện tham gia giao thông đường bộ bị hư hỏng trên đoạn
+đường bộ giao nhau cùng mức với đường sắt có trách nhiệm giúp đỡ người điều khiển phương
+tiện đưa phương tiện ra khỏi phạm vi an toàn đường sắt.

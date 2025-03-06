@@ -78,7 +78,7 @@ class DocumentIngestionPipeline:
         )
         self.qdrant_client = QdrantVectorDatabase(url=setting.qdrant_url)
 
-    def load_llm(self, model_name) -> FunctionCallingLLM:
+    def load_llm(self, model_name):
         return OpenAI(model=model_name)
 
     def get_embedding(
@@ -165,7 +165,7 @@ class DocumentIngestionPipeline:
                         chapter_uuid = chapter_uuid,
                         article_id = f'article{idx}',
                         article_uuid = article_uuid,
-                        article_content = chunk.text,
+                        article_content = chunk.metadata['article_title'] + '\n' + chunk.text,    
                         contextualized_article_content = contextualized_article_content
                     )
                 )
@@ -178,7 +178,7 @@ class DocumentIngestionPipeline:
                         chapter_uuid = chapter_uuid,
                         article_id = f'article{idx}',
                         article_uuid = article_uuid,
-                        article_content = chunk.text,
+                        article_content = chunk.metadata['article_title'] + '\n' + chunk.text,
                         contextualized_article_content = contextualized_article_content,
                 ),
             )
@@ -202,7 +202,7 @@ class DocumentIngestionPipeline:
         documents_metadata: list[DocumentMetadata] = []
 
         for chapter, articles in tqdm(
-            zip(splitted_chapters, splitted_articles), #change len split-chap to split-art
+            zip(splitted_chapters, splitted_articles), 
             desc='Adding contextual content for each document...',
             total=len(splitted_articles)
         ):
@@ -211,7 +211,6 @@ class DocumentIngestionPipeline:
 
             documents.extend(document)
             documents_metadata.extend(metadata)
-            ic(documents)
 
             chapter_id += 1
 
@@ -258,7 +257,6 @@ class DocumentIngestionPipeline:
             type: mode to ingest (origin or contextual)
             
         '''
-
         vectors = [self.get_embedding(doc.text) for doc in tqdm(documents, desc='Getting embeddings ...')]
         payloads = [
             QdrantPayload(

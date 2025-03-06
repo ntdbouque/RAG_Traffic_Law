@@ -16,6 +16,7 @@ from source.settings import setting as ConfigSetting
 from source.database.elastic import ElasticSearch
 from source.database.qdrant import QdrantVectorDatabase
 from source.constants import QA_PROMPT
+from source.logging.log_retrieval import log_retrieval
 
 from qdrant_client import QdrantClient
 from llama_index.llms.openai import OpenAI
@@ -254,6 +255,8 @@ class RetrievalPipeline():
         contexts = [n.node.text for n in retrieved_nodes]
         
         response  = self.generate_response(query, contexts)
+        
+        log_retrieval(semantic_results, bm25_results, combined_nodes, retrieved_nodes, query, response)
         ic(response)
         return response
     

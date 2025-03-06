@@ -41,22 +41,22 @@ class ChatbotTrafficLawRAG:
         contextual_rag_tool = load_contextual_rag_tool()
         return [contextual_rag_tool]
 
-    def add_tools(self, tools: FunctionTool | list[FunctionTool]) -> None:
-        """
-        Add more tools to the agent.
+    # def add_tools(self, tools: FunctionTool | list[FunctionTool]) -> None:
+    #     """
+    #     Add more tools to the agent.
 
-        Args:
-            tools (FunctionTool | list[FunctionTool]): A single tool or a list of tools to add to the agent.
-        """
-        if isinstance(tools, FunctionTool):
-            tools = [tools]
+    #     Args:
+    #         tools (FunctionTool | list[FunctionTool]): A single tool or a list of tools to add to the agent.
+    #     """
+    #     if isinstance(tools, FunctionTool):
+    #         tools = [tools]
 
-        self.tools.extend(tools)
-        ic(f"Add: {len(tools)} tools.")
+    #     self.tools.extend(tools)
+    #     ic(f"Add: {len(tools)} tools.")
 
-        self.query_engine = (
-            self.create_query_engine()
-        )  # Re-create the query engine with the new tools
+    #     self.query_engine = (
+    #         self.create_query_engine()
+    #     )  # Re-create the query engine with the new tools
 
     def load_model(self, service, model_id):
         '''

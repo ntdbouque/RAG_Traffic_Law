@@ -144,8 +144,7 @@ def extract_article_indices(chapter_lines):
     pattern = r"# điều \d+"
     for i, line in enumerate(chapter_lines):
         if re.match(pattern, line):
-            article_indices.append(i)
-    ic(article_indices)        
+            article_indices.append(i)     
     return article_indices
 
 def extract_article_contents(chapter_lines, article_indices):

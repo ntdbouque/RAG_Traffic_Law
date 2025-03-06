@@ -29,7 +29,6 @@ def parse_multiple_files(folder_dir: str) -> list[Document]:
     '''
 
     valid_files = get_files_from_folder(folder_dir)
-    ic(valid_files)
     file_extractor = get_extractor()
 
     documents = SimpleDirectoryReader(

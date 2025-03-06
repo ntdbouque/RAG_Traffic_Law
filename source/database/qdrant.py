@@ -47,7 +47,7 @@ class QdrantVectorDatabase(BaseVectorDatabase):
 
     def __init__(self, url: str, distance: str = models.Distance.COSINE) -> None:
         self.url = url,
-        self.client = QdrantClient(url)
+        self.client = QdrantClient(url, timeout=60)
         self.distance = distance
         self.test_connection()
 
@@ -82,6 +82,7 @@ class QdrantVectorDatabase(BaseVectorDatabase):
                 quantization_config=models.BinaryQuantization(
                     binary=models.BinaryQuantizationConfig(always_ram=True),
                 ),
+                shard_number=96,
             )
     def get_collection_info(self, collection_name: str = None):
         if collection_name:
@@ -127,6 +128,7 @@ class QdrantVectorDatabase(BaseVectorDatabase):
         ]
         
         self.client.upsert(collection_name=collection_name, points=points)
+        ic(f"Added {len(points)} vectors to Qdrant collection {collection_name}")
 
     def delete_collection(self, collection_name: str):
         """

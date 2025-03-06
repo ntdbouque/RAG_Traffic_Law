@@ -122,6 +122,7 @@ class ElasticSearch(BaseVectorDatabase):
         success, _ = bulk(self.es_client, actions)
 
         self.es_client.indices.refresh(index = self.index_name)
+        ic(f'Indexing {len(actions)} documents to Elastic Collection: {self.index_name}')
         return success
 
     def search(self, query: str, k: int = 20) -> list[ElasticSearchResponse]:

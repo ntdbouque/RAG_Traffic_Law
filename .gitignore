@@ -1,3 +1,5 @@
 .env
 sample/*
 help.txt
+evaluator/test/*
+logs/*

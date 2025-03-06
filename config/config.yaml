@@ -11,11 +11,11 @@ CONTEXTUAL_RAG: # config for contextual RAG (contextual chunk, embedding)
     EMBEDDING_MODEL: text-embedding-ada-002
 
     ORIGIN_RAG_COLLECTION_NAME: "origin_rag_test"
-    CONTEXTUAL_RAG_COLLECTION_NAME: "contextual_rag_test2"
+    CONTEXTUAL_RAG_COLLECTION_NAME: "contextual_rag_test"
 
     QDRANT_URL: "http://localhost:6333"
     ELASTIC_SEARCH_URL: "http://localhost:9200"
-    ELASTIC_SEARCH_INDEX_NAME: "contextual_rag_test2"
+    ELASTIC_SEARCH_INDEX_NAME: "contextual_rag_test"
 
     NUM_CHUNKS_TO_RECALL: 20
     SEMANTIC_WEIGHT: 0.8
