@@ -26,3 +26,4 @@ def load_contextual_rag_tool():
         return_direct = True,
         description = 'A useful to answer query using Traffic Law Augmented Retrieval'
     )
+

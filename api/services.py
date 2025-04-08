@@ -17,7 +17,11 @@ from llama_index.core.tools import FunctionTool
 
 from starlette.responses import StreamingResponse, Response
 
-from source.tools.contextual_rag_tools import load_contextual_rag_tool
+from source.tools.contextual_rag_tools import (
+    load_contextual_rag_tool
+)
+
+
 from source.constants import (
     SERVICE,
     TEMPERATURE,
@@ -69,10 +73,9 @@ class ChatbotTrafficLawRAG:
         Raise:
             ValueError: If the service is not supported
         '''
-
         if service == 'openai':
             return OpenAI(
-                model_id=model_id,
+                model=model_id,
                 temperature=TEMPERATURE,
                 api_key = os.getenv('OPENAI_API_KEY')
                 )

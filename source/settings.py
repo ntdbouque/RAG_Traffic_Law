@@ -13,8 +13,22 @@ from source.constants import (
     NUM_CHUNKS_TO_RECALL,
     CONTEXTUAL_CHUNK_SIZE,
     ELASTIC_SEARCH_INDEX_NAME,
-    ORIGINAL_RAG_COLLECTION_NAME,
+    # ORIGINAL_RAG_COLLECTION_NAME,
     CONTEXTUAL_RAG_COLLECTION_NAME,
+    # CONTEXTUAL_RAG_COLLECTION_NAME_1,
+    # CONTEXTUAL_RAG_COLLECTION_NAME_2,
+    # CONTEXTUAL_RAG_COLLECTION_NAME_3,
+    # CONTEXTUAL_RAG_COLLECTION_NAME_4,
+    # CONTEXTUAL_RAG_COLLECTION_NAME_5,
+    # CONTEXTUAL_RAG_COLLECTION_NAME_6,
+    # CONTEXTUAL_RAG_COLLECTION_NAME_7,
+    # ELASTIC_SEARCH_INDEX_NAME_1,
+    # ELASTIC_SEARCH_INDEX_NAME_2,
+    # ELASTIC_SEARCH_INDEX_NAME_3,
+    # ELASTIC_SEARCH_INDEX_NAME_4,
+    # ELASTIC_SEARCH_INDEX_NAME_5,
+    # ELASTIC_SEARCH_INDEX_NAME_6,
+    # ELASTIC_SEARCH_INDEX_NAME_7,
 )
 
 class Settings(BaseModel):
@@ -46,15 +60,44 @@ class Settings(BaseModel):
 
     embed_model: str = Field(description="The embedding model", default=EMBEDDING_MODEL)
 
-    original_rag_collection_name: str = Field(
-        description="The original RAG collection name",
-        default=ORIGINAL_RAG_COLLECTION_NAME,
-    )
+    # original_rag_collection_name: str = Field(
+    #     description="The original RAG collection name",
+    #     default=ORIGINAL_RAG_COLLECTION_NAME_1,
+    # )
 
     contextual_rag_collection_name: str = Field(
         description="The contextual RAG collection name",
         default=CONTEXTUAL_RAG_COLLECTION_NAME,
     )
+    
+    # contextual_rag_collection_name_1: str = Field(
+    #     description="The contextual RAG collection name",
+    #     default=CONTEXTUAL_RAG_COLLECTION_NAME_1,
+    # )
+    # contextual_rag_collection_name_2: str = Field(
+    #     description="The contextual RAG collection name",
+    #     default=CONTEXTUAL_RAG_COLLECTION_NAME_2,
+    # )
+    # contextual_rag_collection_name_3: str = Field(
+    #     description="The contextual RAG collection name",
+    #     default=CONTEXTUAL_RAG_COLLECTION_NAME_3,
+    # )
+    # contextual_rag_collection_name_4: str = Field(
+    #     description="The contextual RAG collection name",
+    #     default=CONTEXTUAL_RAG_COLLECTION_NAME_4,
+    # )
+    # contextual_rag_collection_name_5: str = Field(
+    #     description="The contextual RAG collection name",
+    #     default=CONTEXTUAL_RAG_COLLECTION_NAME_5,
+    # )
+    # contextual_rag_collection_name_6: str = Field(
+    #     description="The contextual RAG collection name",
+    #     default=CONTEXTUAL_RAG_COLLECTION_NAME_6,
+    # )
+    # contextual_rag_collection_name_7: str = Field(
+    #     description="The contextual RAG collection name",
+    #     default=CONTEXTUAL_RAG_COLLECTION_NAME_7,
+    # )
 
     qdrant_url: str = Field(description="The QdrantVectorDB URL", default=QDRANT_URL)
 
@@ -65,6 +108,31 @@ class Settings(BaseModel):
     elastic_search_index_name: str = Field(
         description="The Elastic index name", default=ELASTIC_SEARCH_INDEX_NAME
     )
+    
+    # elastic_search_index_name_1: str = Field(
+    #     description="The Elastic index name", default=ELASTIC_SEARCH_INDEX_NAME_1
+    # )
+    
+    # elastic_search_index_name_2: str = Field(
+    #     description="The Elastic index name", default=ELASTIC_SEARCH_INDEX_NAME_2
+    # )
+    
+    # elastic_search_index_name_3: str = Field(
+    #     description="The Elastic index name", default=ELASTIC_SEARCH_INDEX_NAME_3
+    # )
+    # elastic_search_index_name_4: str = Field(
+    #     description="The Elastic index name", default=ELASTIC_SEARCH_INDEX_NAME_4
+    # )
+    # elastic_search_index_name_5: str = Field(
+    #     description="The Elastic index name", default=ELASTIC_SEARCH_INDEX_NAME_5
+    # )
+    # elastic_search_index_name_6: str = Field(
+    #     description="The Elastic index name", default=ELASTIC_SEARCH_INDEX_NAME_6
+    # )
+    # elastic_search_index_name_7: str = Field(
+    #     description="The Elastic index name", default=ELASTIC_SEARCH_INDEX_NAME_7
+    # )
+    
     num_chunks_to_recall: int = Field(
         description="The number of chunks to recall", default=NUM_CHUNKS_TO_RECALL
     )

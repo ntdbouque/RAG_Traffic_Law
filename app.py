@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 load_dotenv(override=True)
 app = FastAPI()
 
+@app.get('/home')
 @app.get("/")
 async def root():
     return {

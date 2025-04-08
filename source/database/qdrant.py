@@ -11,6 +11,7 @@ Latest Update: 18/02/2025
 from qdrant_client.http import models
 from qdrant_client import QdrantClient
 from qdrant_client.http.exceptions import ResponseHandlingException
+from qdrant_client.models import Filter
 
 import sys
 from pathlib import Path
@@ -72,16 +73,16 @@ class QdrantVectorDatabase(BaseVectorDatabase):
             self.client.create_collection(
                 collection_name, 
                 vectors_config=models.VectorParams(
-                    size=vector_size, distance=self.distance
+                    size=vector_size, distance=self.distance, 
                 ),
                 optimizers_config=models.OptimizersConfigDiff(
-                    default_segment_number=5,
-                    indexing_threshold=0
+                    default_segment_number=64,
                 ),
                 # Quantization document: https://qdrant.tech/documentation/guides/quantization/#:~:text=Binary%20quantization%20is%20an%20extreme%20case%20of%20scalar,the%20memory%20footprint%20by%20a%20factor%20of%2032.
                 quantization_config=models.BinaryQuantization(
                     binary=models.BinaryQuantizationConfig(always_ram=True),
                 ),
+                on_disk_payload = True,
                 shard_number=96,
             )
     def get_collection_info(self, collection_name: str = None):
@@ -146,9 +147,27 @@ class QdrantVectorDatabase(BaseVectorDatabase):
         if success:
             logger.debug(f"Collection {collection_name} deleted successfully!")
 
+    def edit_point(self, collection_name:str, chunk_id: str):
+        # find the point base 'chunk_id'
+        filter_condition = Filter(
+            must=[{
+                'key': 'article_id',
+                'match': chunk_id
+            }]
+        )
+        
+        search_results = self.client.search(
+            collection_name = collection_name,
+            query_vector = None, 
+            limit = 3,
+            filter = filter_condition
+        )
+        
+        return search_results
+
     
 if __name__ == '__main__':  
     from icecream import ic
     url = "http://localhost:6333"
     db = QdrantVectorDatabase(url)
-    #ic(db.get_collection_info(collection_name='contextual_rag_test'))
+    ic(db.edit_point(collection_name='35_2024_qh_15'), chunk_id = '')

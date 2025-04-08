@@ -18,7 +18,31 @@ from llama_index.core import Document
 from llama_index.core import SimpleDirectoryReader
 from source.reader.utils import get_files_from_folder, get_extractor
 
-def parse_multiple_files(folder_dir: str) -> list[Document]:
+# def parse_multiple_files(files_or_folder: list[str]) -> list[Document]:
+#     '''
+#     Read the content of multiple files
+
+#     Args:
+#         folder_dir: Path to folder directory containing files
+#     Returns:
+#         list[Document]: List of document from all files
+#     '''
+
+#     if isinstance(files_or_folder, str):
+#         files_or_folder = [files_or_folder]
+
+#     valid_files = get_files_from_folder(files_or_folder)
+#     file_extractor = get_extractor()
+
+#     documents = SimpleDirectoryReader(
+#         input_files = valid_files,
+#         file_extractor = file_extractor,
+#     ).load_data(show_progress=True)
+    
+#     return documents
+
+
+def parse_multiple_files(files_or_folder: list[str]) -> list[Document]:
     '''
     Read the content of multiple files
 
@@ -28,7 +52,10 @@ def parse_multiple_files(folder_dir: str) -> list[Document]:
         list[Document]: List of document from all files
     '''
 
-    valid_files = get_files_from_folder(folder_dir)
+    if isinstance(files_or_folder, str):
+        files_or_folder = [files_or_folder]
+
+    valid_files = get_files_from_folder(files_or_folder)
     file_extractor = get_extractor()
 
     documents = SimpleDirectoryReader(

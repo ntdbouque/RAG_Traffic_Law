@@ -9,11 +9,13 @@ TEMPERATURE = cfg.MODEL.TEMPERATURE
 MODEL_ID = cfg.MODEL.MODEL_ID
 
 QA_PROMPT = (
-    "We have provided context information below. \n"
+    "Dưới đây là một nội dung của một Điều/hoặc những Khoản nhỏ của một điều trích từ một thông tư/nghị định/luật: \n"
     "---------------------\n"
     "{context_str}"
     "\n---------------------\n"
-    "Given this information, please answer the question: {query_str}\n"
+    "Dựa vào thông tin trên, hãy trả lời câu hỏi sau: {query_str}\n\
+    Lưu ý luôn suy nghĩ kĩ trước khi trả lời. Để trả lời câu hỏi vế đầu tiên bạn phải trích dẫn lại ý chính của câu hỏi và trả lời thẳng vào câu hỏi.\
+    Sau đó trích dẫn lại nội dung bạn đã tham chiếu kèm theo vị trí của đoạn tham chiếu đó trong Luật. Nếu không biết hãy trả lời thành thật và lịch sự, không đưa ra thông tin sai lệch"
 )
 
 # Contextual RAG configuration
@@ -28,7 +30,8 @@ Bên dưới đây là {ARTICLE_TITLE} mà tôi muốn bạn đặt vào trong n
 <chunk>
 {CHUNK_CONTENT}
 </chunk>
-Vui lòng cung cấp một bối cảnh ngắn gọn, súc tích để đặt đoạn nội dung này trong ngữ cảnh của toàn bộ tài liệu nhằm cải thiện khả năng tìm kiếm và truy xuất đoạn nội dung. Chỉ trả lời bằng bối cảnh ngắn gọn và không thêm nội dung khác."""
+Vui lòng cung cấp một bối cảnh ngắn gọn, súc tích để đặt đoạn nội dung này trong ngữ cảnh của toàn bộ tài liệu nhằm cải thiện khả năng tìm kiếm và truy xuất đoạn nội dung. Chỉ trả lời bằng bối cảnh ngắn gọn và không thêm nội dung khác.
+"""
 
 METADATA_PROMPT = '''
 Từ đoạn văn bản dưới đây, hãy trích xuất các thông tin sau một cách rõ ràng và chính xác:
@@ -54,9 +57,8 @@ SPECIAL_CASE = ['phần', 'chương', 'mục', 'tiểu mục', 'điều']
 
 CONTEXTUAL_CHUNK_SIZE = cfg.CONTEXTUAL_RAG.CHUNK_SIZE
 CONTEXTUAL_MODEL = cfg.CONTEXTUAL_RAG.MODEL
-
-ORIGINAL_RAG_COLLECTION_NAME = cfg.CONTEXTUAL_RAG.ORIGIN_RAG_COLLECTION_NAME
 CONTEXTUAL_RAG_COLLECTION_NAME = cfg.CONTEXTUAL_RAG.CONTEXTUAL_RAG_COLLECTION_NAME
+
 
 QDRANT_URL = cfg.CONTEXTUAL_RAG.QDRANT_URL
 ELASTIC_SEARCH_URL = cfg.CONTEXTUAL_RAG.ELASTIC_SEARCH_URL

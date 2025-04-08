@@ -1,6 +1,6 @@
 MODEL: # config for generation model
     TEMPERATURE: 0.2
-    STREAM: True
+    STREAM: False
     SERVICE: 'openai'
     MODEL_ID: gpt-4o-mini
 
@@ -8,18 +8,17 @@ CONTEXTUAL_RAG: # config for contextual RAG (contextual chunk, embedding)
     CHUNK_SIZE: 1024 
     SERVICE: 'openai'
     MODEL: "gpt-4o-mini"
-    EMBEDDING_MODEL: text-embedding-ada-002
+    EMBEDDING_MODEL: text-embedding-3-large
 
-    ORIGIN_RAG_COLLECTION_NAME: "origin_rag_test"
-    CONTEXTUAL_RAG_COLLECTION_NAME: "contextual_rag_test"
+    ORIGIN_RAG_COLLECTION_NAME: "origin_rag_test_2" # dont use
+    CONTEXTUAL_RAG_COLLECTION_NAME: 'contextual_rag_nckh' 
 
     QDRANT_URL: "http://localhost:6333"
     ELASTIC_SEARCH_URL: "http://localhost:9200"
-    ELASTIC_SEARCH_INDEX_NAME: "contextual_rag_test"
-
+    ELASTIC_SEARCH_INDEX_NAME: 'contextual_rag_nckh' 
     NUM_CHUNKS_TO_RECALL: 20
-    SEMANTIC_WEIGHT: 0.8
-    BM25_WEIGHT: 0.2
+    SEMANTIC_WEIGHT: 1.0
+    BM25_WEIGHT: 0
 
     TOP_N: 3
 

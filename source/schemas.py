@@ -30,7 +30,10 @@ class DocumentMetadata(BaseModel):
     new_chunk: str
     chapter_id: str
     chapter_uuid: str
-    article_id: str
+    khoan: str
+    dieu: str
+    chuong: str
+    luat: str
     article_uuid: str
     article_content: str
     contextualized_article_content: str
@@ -49,6 +52,10 @@ class ElasticSearchResponse(BaseModel):
     doc_id: str
     original_content: str
     contextual_content: str
+    khoan: str
+    dieu: str
+    chuong: str
+    luat: str
     score: float
 
 
@@ -63,4 +70,9 @@ class QdrantPayload(BaseModel):
     '''
     chapter_uuid: str
     text: str
+    original_content: str
     article_uuid: str
+    khoan: str
+    dieu: str
+    chuong: str
+    luat: str
