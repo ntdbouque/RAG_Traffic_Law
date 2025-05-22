@@ -49,7 +49,25 @@ from source.constants import (
 )
 
 from source.settings import Settings as setting
-from source.reader.section_reader import split_documents
+from source.reader.structured_csv_parser import parse_and_format_csv
+
+
+import tiktoken
+
+def cut_text_to_token_limit(text: str, max_tokens: int = 8100) -> str:
+    # Sử dụng mã hóa GPT-3/4 (cl100k_base)
+    encoder = tiktoken.get_encoding("cl100k_base")
+    
+    # Mã hóa văn bản thành các token
+    tokens = encoder.encode(text)
+    
+    # Kiểm tra số token và cắt bớt nếu cần
+    if len(tokens) > max_tokens:
+        tokens = tokens[:max_tokens]  # Giới hạn số token
+        text = encoder.decode(tokens)  # Giải mã lại văn bản sau khi cắt
+        print(f"Văn bản đã được cắt xuống {max_tokens} token.")
+    
+    return text
 
 
 class DocumentIngestionPipeline:
@@ -94,6 +112,9 @@ class DocumentIngestionPipeline:
         Return:
             Tensor: embedding format of chunk
         '''
+        
+        chunk = cut_text_to_token_limit(chunk)
+        
         return self.embed_model.get_text_embedding(chunk)
 
     def preprocess_message(self, messages: Sequence[ChatMessage]):
@@ -144,7 +165,7 @@ class DocumentIngestionPipeline:
                         WHOLE_DOCUMENT=chapter.text,
                         ARTICLE_TITLE=chunk.metadata['article_title'],
                         CHAPTER_TITLE=chunk.metadata['chapter_title'],
-                        TITLE=chunk.metadata['title'],
+                        TITLE=chunk.metadata['ten_luat'],
                         CHUNK_CONTENT=chunk.text
                     )
                 )
@@ -163,7 +184,7 @@ class DocumentIngestionPipeline:
                     metadata = dict(
                         chapter_id = f'chapter{chapter_id}',
                         chapter_uuid = chapter_uuid,
-                        article_id = f'article{idx}',
+                        article_id = chunk_id,
                         article_uuid = article_uuid,
                         article_content = chunk.metadata['article_title'] + '\n' + chunk.text,    
                         contextualized_article_content = contextualized_article_content
@@ -176,7 +197,7 @@ class DocumentIngestionPipeline:
                         new_chunk = new_chunk,
                         chapter_id = f'chapter{chapter_id}',
                         chapter_uuid = chapter_uuid,
-                        article_id = f'article{idx}',
+                        article_id = chunk_id,
                         article_uuid = article_uuid,
                         article_content = chunk.metadata['article_title'] + '\n' + chunk.text,
                         contextualized_article_content = contextualized_article_content,
@@ -227,13 +248,13 @@ class DocumentIngestionPipeline:
         Args:
             documents_metadata (list[DocumentMetadata]): list of document to ingest
             type (str): mode to ingest, origin or contextual
-            
         '''
         actions = [
             {
                 '_index': self.setting.elastic_search_index_name,
                 '_source': {
                     'doc_id': metadata.article_uuid,
+                    'article_id': metadata.article_id,
                     'original_content': metadata.article_content,
                     'contextual_content': metadata.contextualized_article_content
                 }
@@ -257,12 +278,16 @@ class DocumentIngestionPipeline:
             type: mode to ingest (origin or contextual)
             
         '''
+        ic(documents[0].metadata['article_content'])
+        
         vectors = [self.get_embedding(doc.text) for doc in tqdm(documents, desc='Getting embeddings ...')]
         payloads = [
             QdrantPayload(
                 chapter_uuid = doc.metadata['chapter_uuid'],
                 text = doc.text,
-                article_uuid = doc.metadata['article_uuid']
+                article_uuid = doc.metadata['article_uuid'], 
+                article_id = doc.metadata['article_id'],
+                original_content = doc.metadata['article_content']
             )
             for doc in documents
         ]
@@ -287,14 +312,16 @@ class DocumentIngestionPipeline:
             type: Literal['origin, contextual', 'both']: The type to ingest. Default `contextual`
         '''
 
-        raw_documents = parse_multiple_files(folder_dir)
-        ic(len(raw_documents))
-        splitted_chapters, splitted_articles = split_documents(self.keyword_extractor, raw_documents) 
+        # raw_documents = parse_multiple_files(folder_dir)
+        # ic(len(raw_documents))
+        # splitted_chapters, splitted_articles = split_documents(self.keyword_extractor, raw_documents) 
         
-        ic(len(splitted_chapters), len(splitted_articles))
-        contextual_documents, contextual_documents_metadata = (
-            self.get_contextual_documents(splitted_chapters, splitted_articles)
-        )
+        #splitted_chapters, splitted_articles = parse_and_format_csv(folder_dir)
+        
+        #ic(len(splitted_chapters), len(splitted_articles))
+        #contextual_documents, contextual_documents_metadata = (
+        #    self.get_contextual_documents(splitted_chapters, splitted_articles)
+        #)
 
         # Ingest data to Vector DB
         self.ingest_data_qdrant(contextual_documents)

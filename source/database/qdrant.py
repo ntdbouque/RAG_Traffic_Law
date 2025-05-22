@@ -11,6 +11,7 @@ Latest Update: 18/02/2025
 from qdrant_client.http import models
 from qdrant_client import QdrantClient
 from qdrant_client.http.exceptions import ResponseHandlingException
+from qdrant_client.models import Filter
 
 import sys
 from pathlib import Path
@@ -146,9 +147,27 @@ class QdrantVectorDatabase(BaseVectorDatabase):
         if success:
             logger.debug(f"Collection {collection_name} deleted successfully!")
 
+    def edit_point(self, collection_name:str, chunk_id: str):
+        # find the point base 'chunk_id'
+        filter_condition = Filter(
+            must=[{
+                'key': 'article_id',
+                'match': chunk_id
+            }]
+        )
+        
+        search_results = self.client.search(
+            collection_name = collection_name,
+            query_vector = None, 
+            limit = 3,
+            filter = filter_condition
+        )
+        
+        return search_results
+
     
 if __name__ == '__main__':  
     from icecream import ic
     url = "http://localhost:6333"
     db = QdrantVectorDatabase(url)
-    #ic(db.get_collection_info(collection_name='contextual_rag_test'))
+    ic(db.edit_point(collection_name='35_2024_qh_15'), chunk_id = '')

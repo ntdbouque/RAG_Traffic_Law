@@ -17,7 +17,11 @@ from llama_index.core.tools import FunctionTool
 
 from starlette.responses import StreamingResponse, Response
 
-from source.tools.contextual_rag_tools import load_contextual_rag_tool
+from source.tools.contextual_rag_tools import (
+    load_contextual_rag_tool
+)
+from source.tools.location_search_tools import load_location_search_tool
+
 from source.constants import (
     SERVICE,
     TEMPERATURE,
@@ -39,6 +43,7 @@ class ChatbotTrafficLawRAG:
         Load default RAG tool.
         """
         contextual_rag_tool = load_contextual_rag_tool()
+        location_search_tool = load_location_search_tool()
         return [contextual_rag_tool]
 
     # def add_tools(self, tools: FunctionTool | list[FunctionTool]) -> None:
@@ -69,10 +74,9 @@ class ChatbotTrafficLawRAG:
         Raise:
             ValueError: If the service is not supported
         '''
-
         if service == 'openai':
             return OpenAI(
-                model_id=model_id,
+                model=model_id,
                 temperature=TEMPERATURE,
                 api_key = os.getenv('OPENAI_API_KEY')
                 )
@@ -94,6 +98,7 @@ class ChatbotTrafficLawRAG:
         llm = self.load_model(SERVICE, MODEL_ID)
         Settings.llm = llm
 
+        ic(llm)
         if AGENT_TYPE == 'openai':
             query_engine = OpenAIAgent.from_tools(
                 tools = self.tools, verbose = True, llm = llm

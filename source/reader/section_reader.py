@@ -15,6 +15,8 @@ from llama_index.core import Document
 from copy import deepcopy
 from icecream import ic
 
+from tqdm import tqdm
+
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
 from source.constants import (
@@ -180,7 +182,7 @@ def split_documents(extractor, raw_documents):
 
     splitted_articles = []
     splitted_chapters = []
-    for doc in raw_documents:  
+    for doc in tqdm(raw_documents):  
         lst_lines = doc.text.split('\n')
         lst_lines = pre_process(lst_lines) 
             

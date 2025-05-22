@@ -12,7 +12,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
-from source.settings import setting as ConfigSetting
+from source.settings import Settings as ConfigSettings#, setting as config_setting
 from source.database.elastic import ElasticSearch
 from source.database.qdrant import QdrantVectorDatabase
 from source.constants import QA_PROMPT
@@ -23,10 +23,13 @@ from llama_index.llms.openai import OpenAI
 from llama_index.core.llms import ChatMessage
 from llama_index.vector_stores.qdrant import QdrantVectorStore
 from llama_index.postprocessor.cohere_rerank import CohereRerank
+from llama_index.postprocessor.rankgpt_rerank import RankGPTRerank
+
+from llama_index.core.query_engine import CustomQueryEngine
 from llama_index.core.retrievers import VectorIndexRetriever
 from llama_index.core.query_engine import RetrieverQueryEngine
 from llama_index.core.base.response.schema import Response
-from llama_index.core.schema import NodeWithScore, Node
+from llama_index.core.schema import NodeWithScore, Node, TextNode
 from llama_index.core import (
     Settings,
     Document,
@@ -34,18 +37,41 @@ from llama_index.core import (
     StorageContext,
     VectorStoreIndex,
 )
-from typing import Literal, Sequence
+from typing import Sequence
+from llama_index.core.callbacks import CallbackManager, LlamaDebugHandler
 
-load_dotenv()
 
-class RetrievalPipeline():
+# Using the LlamaDebugHandler to print the trace of the sub questions
+# captured by the SUB_QUESTION callback event type
+llama_debug = LlamaDebugHandler(print_trace_on_end=True)
+callback_manager = CallbackManager([llama_debug])
+
+Settings.callback_manager = callback_manager
+
+load_dotenv(override=True)
+
+
+class RetrievalPipeline(CustomQueryEngine):
     '''
     Contextual Retrieval-Augmented Generation (RAG) class to search for relevant article from Vietnamese Traffic Law
     '''
-    def __init__(self, setting: ConfigSetting, k: int = 150):
+    class Config:
+        extra = 'allow'
+
+#    def __init__(self, contextual_name, elastic_name, k: int = 150):
+    def __init__(self, k=150):
+        super().__init__()
+        print("go1")
+        setting = ConfigSettings()
+        ic(setting)
         self.setting = setting
-        ic(self.setting)
+        #ic(self.setting)
         
+        self.llm = self.load_llm(self.setting.model_name)
+        
+        self.generative_model = self.load_llm('gpt-4o-mini')
+        
+        Settings.llm = self.llm
         self.k = k
         
         self.es_client = ElasticSearch(
@@ -64,6 +90,7 @@ class RetrievalPipeline():
         self.retriever = VectorIndexRetriever(
             index=self.qdrant_index,
             similarity_top_k = k,
+            use_async = True
         )
         
         self.query_engine = RetrieverQueryEngine(retriever=self.retriever)
@@ -73,7 +100,29 @@ class RetrievalPipeline():
             api_key = os.getenv('COHERE_API_KEY')
         )
         
-        self.llm = OpenAI(model=self.setting.model_name)
+        self.reranker_gpt = RankGPTRerank(
+            llm=OpenAI(
+                model="gpt-3.5-turbo-16k",
+                temperature=0.0,
+                api_key=os.getenv('OPENAI_API_KEY'),
+            ),
+            top_n=3,
+            verbose=True,
+        )
+        
+    def load_llm(self, model_name: str):
+        '''
+        Load the LLM model
+        
+        Args:
+            model_name (str): The model name
+        '''
+
+        return OpenAI(
+                model=model_name,
+                api_key = os.getenv('OPENAI_API_KEY'),
+                #additional_kwargs = {"parallel_tool_calls":True}
+            )
     
     def get_qdrant_vector_store_index(self, client: QdrantClient, collection_name: str):
         '''
@@ -90,9 +139,12 @@ class RetrievalPipeline():
         vector_store = QdrantVectorStore(client=client, collection_name=collection_name)
         storage_context = StorageContext.from_defaults(vector_store=vector_store)
         
-        return VectorStoreIndex.from_vector_store(vector_store=vector_store, storage_context=storage_context)
+        return VectorStoreIndex.from_vector_store(
+            vector_store=vector_store, 
+            storage_context=storage_context,
+            use_async=True)
     
-    def contextual_search(self, query, k: int = 150):
+    def contextual_search(self, query, k: int = 50):
         '''
         Search the query with the contextual RAG (Qdrant)
         
@@ -122,7 +174,6 @@ class RetrievalPipeline():
         
         ic(query, k)
         bm25_results = self.es_client.search(query, k)
-        ic(len(bm25_results))
         #bm25_doc_id = [doc.doc_id for doc in bm25_results]
         
         return bm25_results
@@ -156,11 +207,10 @@ class RetrievalPipeline():
         ]
         bm25_doc_id = [result.doc_id for result in bm25_results]
         
-        
         def get_content_by_doc_id(doc_id: str):
             for node in semantic_results.source_nodes:
                 if node.metadata["article_uuid"] == doc_id:
-                    return node.text
+                    return 'Vị trí trong tài liệu:' + node.metadata['article_id'] + '\n' + 'Nội dung: ' + node.metadata['original_content']
             return ""
         
         semantic_weight = self.setting.semantic_weight
@@ -201,11 +251,13 @@ class RetrievalPipeline():
                 
             combined_nodes.append(
                 NodeWithScore(
-                    node=Node(text=content),
+                    node=TextNode(text=content),
                     score=score
                 )
             )
         ic(both_count)
+        combined_nodes.sort(key=lambda x: x.score, reverse=True)  # Sắp xếp giảm dần theo score
+        ic(combined_nodes[0])
         return combined_nodes 
 
     def preprocess_message(self, messages: Sequence[ChatMessage]):
@@ -224,19 +276,23 @@ class RetrievalPipeline():
         messages = [
             ChatMessage(
                 role="system",
-                content="You are a helpful assistant.",
+                content="Bạn sẽ đóng vai trò là luật sư chuyên nghiệp trả lời các câu hỏi liên quan đến pháp luật giao thông. Tôi sẽ cung cấp cho bạn một 'Điều' trong một bộ thông tư/nghị định/luật Việt Nam, nhiệm vụ của bạn là dựa vào văn bản đã cung cấp, hãy suy nghĩ step-by-step rồi trả lời câu hỏi tôi đưa ra. Đồng thời đưa ra trích dẫn tới đoạn chi tiết trong đoạn bạn đã tham chiếu. Nếu văn bản không chứa đủ thông tin để trả lời câu hỏi, bạn hãy trả lời không biết",
             ),
             ChatMessage(
                 role="user",
                 content=QA_PROMPT.format(
-                    context_str=json.dumps(contexts),
+                    context_str=json.dumps(contexts, ensure_ascii=False),
                     query_str=query,
                 ),
             ),
         ]
-        return self.llm.chat(self.preprocess_message(messages)).message.content
+            
+        return self.generative_model.chat(self.preprocess_message(messages)).message.content
     
-    def hybrid_rag_search(self, query) -> str:
+    def custom_query(self, query):
+        pass
+    
+    def query(self, query) -> Response:
         '''
         Search the query with the contextual RAG
         
@@ -246,22 +302,74 @@ class RetrievalPipeline():
         ''' 
         
         bm25_results = self.bm25_search(query, self.k)
+        ic(len(bm25_results))
         semantic_results = self.contextual_search(query, self.k)
-        
+        ic(len(semantic_results.source_nodes))
         combined_nodes = self.combine_results(semantic_results, bm25_results)
                 
-        retrieved_nodes = self.rewrite_query_and_rerank(combined_nodes, query)
+        #retrieved_nodes = self.rewrite_query_and_rerank(combined_nodes, query)
         
-        contexts = [n.node.text for n in retrieved_nodes]
+        #contexts = [n.node.text for n in retrieved_nodes]
+    
+        query_bundle = QueryBundle(query)
+ 
+        new_nodes = self.reranker_gpt.postprocess_nodes(
+            combined_nodes[0:10], query_bundle
+        )
+        ic(len(new_nodes))
+        contexts = [node.node.get_text() for node in new_nodes]
         
         response  = self.generate_response(query, contexts)
         
-        log_retrieval(semantic_results, bm25_results, combined_nodes, retrieved_nodes, query, response)
+        log_retrieval(semantic_results, bm25_results, combined_nodes, new_nodes, query, response)
         ic(response)
-        return response
+        
+        return Response(
+            response=response,
+            source_nodes=semantic_results,
+            metadata=None
+        )
     
-if __name__ == '__main__':
-    query = "tai sao can doi mu bao hiem khi tham gia giao thong"
-    RetrievalPipeline = RetrievalPipeline(ConfigSetting)
-    response = RetrievalPipeline.hybrid_rag_search(query)
-    ic(response)
+    async def aquery1(self, query) -> Response:
+        return self.query(query)
+    
+    async def aquery(self, query) -> Response:
+        '''
+        Search the query with the contextual RAG
+        
+        Args:
+            query (str): The query string
+            k (int): The number of documents to return  
+        ''' 
+        
+        # bm25_results = self.bm25_search(query, self.k)
+        # ic(len(bm25_results))
+        # semantic_results = self.contextual_search(query, self.k)
+        # ic(len(semantic_results.source_nodes))
+        # combined_nodes = self.combine_results(semantic_results, bm25_results)
+                
+        #retrieved_nodes = self.rewrite_query_and_rerank(combined_nodes, query)
+        
+        #contexts = [n.node.text for n in retrieved_nodes]
+    
+        # query_bundle = QueryBundle(query)
+ 
+        # new_nodes = self.reranker_gpt.postprocess_nodes(
+        #     combined_nodes[0:10], query_bundle
+        # )
+        # ic(len(new_nodes))
+        # contexts = [node.node.get_text() for node in new_nodes]
+        
+        # response  = self.generate_response(query, contexts)
+        
+        # log_retrieval(semantic_results, bm25_results, combined_nodes, new_nodes, query, response)
+        # ic(response)
+    
+        # return Response(
+        #     response=response,
+        #     source_nodes=None,
+        #     metadata=None
+        # )
+
+        response = await self.aquery1(query)
+        return response

@@ -29,7 +29,7 @@ def check_valid_extension(file_path: Union[str, Path]) -> bool:
     '''
     return Path(file_path).suffix in SUPPORTED_FILE_EXTENSIONS
 
-def get_files_from_folder(folder_dir: str) -> list[str]:
+def get_files_from_folder(files_or_folder: str) -> list[str]:
     '''
     Get valid files from folder directory
 
@@ -40,12 +40,16 @@ def get_files_from_folder(folder_dir: str) -> list[str]:
     '''
 
     files = []
-
-    if Path(folder_dir).is_dir():
-        for file_path in Path(folder_dir).rglob('*'):
-            if check_valid_extension(file_path):
-                files.append(str(file_path.resolve()))
-
+    for file_or_folder in files_or_folder:  
+        if Path(file_or_folder).is_dir():
+            for file_path in Path(folder_dir).rglob('*'):
+                if check_valid_extension(file_path):
+                    files.append(str(file_path.resolve()))
+        else:
+            if check_valid_extension(file_or_folder):
+                files.append(str(Path(file_or_folder).resolve()))
+            else:
+                ic(f"File extension not supported: {file_or_folder}")
     return files
 
 def get_extractor():

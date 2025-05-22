@@ -49,6 +49,7 @@ class ElasticSearchResponse(BaseModel):
     doc_id: str
     original_content: str
     contextual_content: str
+    article_id: str
     score: float
 
 
@@ -63,4 +64,6 @@ class QdrantPayload(BaseModel):
     '''
     chapter_uuid: str
     text: str
+    original_content: str
     article_uuid: str
+    article_id: str

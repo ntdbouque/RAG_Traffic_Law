@@ -125,6 +125,39 @@ class ElasticSearch(BaseVectorDatabase):
         ic(f'Indexing {len(actions)} documents to Elastic Collection: {self.index_name}')
         return success
 
+    def search_by_location(self, query: str, k: int = 20) -> list[ElasticSearchResponse]:
+        '''
+        Search the documents relevant to the LOCATION query
+
+        Args:
+            query (str): Query to search
+            k (int): Number of document to retrieve
+        '''
+
+        self.es_client.indices.refresh(index = self.index_name)
+
+        search_body = {
+            'query':{
+                'multi_match':{
+                    'query': query,
+                    'fields': ['article_id'],
+                }
+            },
+            'size': k
+        }
+
+        response = self.es_client.search(index=self.index_name, body=search_body)
+        return [
+            ElasticSearchResponse(
+                doc_id = hit['_source']['doc_id'],
+                original_content = hit['_source']['original_content'],
+                contextual_content = hit['_source']['contextual_content'],
+                article_id = hit['_source']['article_id'],
+                score = hit['_score'] 
+            )
+            for hit in response['hits']['hits']
+        ]
+
     def search(self, query: str, k: int = 20) -> list[ElasticSearchResponse]:
         '''
         Search the documents relevant to the query
@@ -152,10 +185,49 @@ class ElasticSearch(BaseVectorDatabase):
                 doc_id = hit['_source']['doc_id'],
                 original_content = hit['_source']['original_content'],
                 contextual_content = hit['_source']['contextual_content'],
+                article_id = hit['_source']['article_id'],
                 score = hit['_score'] 
             )
             for hit in response['hits']['hits']
         ]
+        
+    def get_all_nodes(self):
+        '''
+        Get all nodes in the collection using scroll
+
+        Return:
+            list: List of all nodes in the collection
+        '''
+        nodes = []
+        
+        # Khởi tạo truy vấn scroll
+        response = self.es_client.search(
+            index=self.index_name,
+            body={"query": {"match_all": {}}},
+            scroll="1m",  # Thời gian scroll (1 phút)
+            size=1000  # Số tài liệu mỗi lần truy vấn
+        )
+        
+        # Lưu kết quả ban đầu
+        nodes.extend(response['hits']['hits'])
+        
+        # Tiến hành lấy dữ liệu tiếp tục từ các trang sau
+        scroll_id = response['_scroll_id']
+        while True:
+            response = self.es_client.scroll(scroll_id=scroll_id, scroll="1m")
+            hits = response['hits']['hits']
+            
+            # Nếu không còn dữ liệu, dừng vòng lặp
+            if not hits:
+                break
+            
+            # Thêm kết quả vào danh sách
+            nodes.extend(hits)
+            
+            # Cập nhật lại scroll_id
+            scroll_id = response['_scroll_id']
+        
+        return nodes
 
 if __name__ == '__main__':
     from source.settings import setting
@@ -164,3 +236,6 @@ if __name__ == '__main__':
     es = ElasticSearch(
         url=setting.elastic_search_url, index_name=setting.elastic_search_index_name
     )
+    
+    print((es.get_all_nodes()[0]))
+

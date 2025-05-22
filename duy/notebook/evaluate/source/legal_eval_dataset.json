@@ -1,0 +1,27 @@
+{
+    "queries": {
+        "q1": {
+            "query": "Thủ tục đăng ký xe máy",
+            "intent": "procedure",
+            "complexity": 1
+        },
+        "q2": {
+            "query": "So sánh mức phạt khi vượt đèn đỏ và đi ngược chiều",
+            "intent": "comparison",
+            "complexity": 2
+        }
+    },
+    "corpus": {
+        "doc1": "Nội dung điều 10 nghị định 123",
+        "doc2": "Nội dung điều 6 nghị định 100"
+    },
+    "relevant_docs": {
+        "q1": [
+            "doc1"
+        ],
+        "q2": [
+            "doc2"
+        ]
+    },
+    "mode": "text"
+}

@@ -1,0 +1,18 @@
+EXPERIMENT:
+  VERSION: 1.0
+  DESCRIPTION: 
+  NUMBER_DOCUMENTS: 2
+  DOCUMENT_CONTAIN: 
+      RAG_Traffic_Law/data/35_2024_ND_CP.xlsx: 
+        Metadata:
+          Ten_Van_Ban: 0
+          So_Hieu: 1
+          Loai_Van_Ban: 2
+          Noi_Ban_Hanh: 3
+          Nguoi_Ky: 4
+          Ngay_Ban_Hanh: 5
+          Ngay_Hieu_Luc: 6
+          Ngay_Cong_Bao: 7
+          So_Cong_Bao: 8
+          Tinh_Trang: 9
+      
