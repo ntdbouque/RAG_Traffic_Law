@@ -1,6 +1,4 @@
-# Dự án Đánh giá Hệ thống Truy vấn Văn bản Pháp luật
-
-Dự án này nhằm xây dựng, đánh giá và cải thiện hệ thống truy vấn tài liệu pháp luật dựa trên ngữ nghĩa. Dưới đây là hướng dẫn sử dụng các module chính trong hệ thống.
+# Hệ thống Truy vấn Văn bản Pháp luật Giao thông Đường bộ Việt Nam
 
 ---
 
@@ -65,12 +63,12 @@ Tham khảo notebook trên để đánh giá `retriever` một câu và toàn b�
 ```python
 from source.rag.retrieval import RetrievalPipeline
 from source.settings import Settings
-```
 
 query = 'người được chở trên xe máy mà sử dụng ô dù thì bị phạt thế nào?'
 retriever = RetrievalPipeline()
 response = retriever.retrieve(query)
 ```
+
 - **`test_query_engnie.py`:**
 ```python 
 retriever = RetrievalPipeline()
