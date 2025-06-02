@@ -1,9 +1,3 @@
-'''
-Author: Nguyen Truong Duy
-Purpose: Building a Chatbot for API service
-Latest Update: 03-03-2025
-'''
-
 import os
 import logging 
 from icecream import ic
@@ -20,8 +14,6 @@ from starlette.responses import StreamingResponse, Response
 from source.tools.contextual_rag_tools import (
     load_contextual_rag_tool
 )
-from source.tools.location_search_tools import load_location_search_tool
-
 from source.constants import (
     SERVICE,
     TEMPERATURE,
@@ -43,25 +35,7 @@ class ChatbotTrafficLawRAG:
         Load default RAG tool.
         """
         contextual_rag_tool = load_contextual_rag_tool()
-        location_search_tool = load_location_search_tool()
         return [contextual_rag_tool]
-
-    # def add_tools(self, tools: FunctionTool | list[FunctionTool]) -> None:
-    #     """
-    #     Add more tools to the agent.
-
-    #     Args:
-    #         tools (FunctionTool | list[FunctionTool]): A single tool or a list of tools to add to the agent.
-    #     """
-    #     if isinstance(tools, FunctionTool):
-    #         tools = [tools]
-
-    #     self.tools.extend(tools)
-    #     ic(f"Add: {len(tools)} tools.")
-
-    #     self.query_engine = (
-    #         self.create_query_engine()
-    #     )  # Re-create the query engine with the new tools
 
     def load_model(self, service, model_id):
         '''

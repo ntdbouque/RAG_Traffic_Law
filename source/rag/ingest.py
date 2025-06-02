@@ -13,27 +13,23 @@ from icecream import ic
 from pathlib import Path
 from datetime import datetime
 from dotenv import load_dotenv
-
+import glob
+import pandas as pd
 sys.path.append(str(Path(__file__).parent.parent.parent))
+load_dotenv(override=True)
 
-from llama_index.llms.openai import OpenAI
-from llama_index.core.extractors.metadata_extractors import KeywordExtractor
-from llama_index.llms.openai import OpenAI
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.vector_stores.qdrant import QdrantVectorStore
-from llama_index.core.llms import ChatMessage
-from llama_index.core.async_utils import asyncio_run
 from typing import Literal, Sequence
-from source.reader.llama_parse_reader import parse_multiple_files
 from source.database.elastic import ElasticSearch
 from source.database.qdrant import QdrantVectorDatabase
-from llama_index.core.llms.function_calling import FunctionCallingLLM
 from llama_index.core import (
     Document, 
-    QueryBundle, 
-    StorageContext, 
-    VectorStoreIndex,
+    Settings
 )
+
+from openai import OpenAI
+
 from source.schemas import (
     QdrantPayload,
     RAGType,
@@ -44,12 +40,9 @@ from source.constants import (
     CONTEXTUAL_PROMPT,
     QA_PROMPT,
     CONTEXTUAL_MODEL,
-    CONTEXTUAL_CHUNK_SIZE,
-    METADATA_PROMPT,
 )
 
-from source.settings import Settings as setting
-from source.reader.structured_csv_parser import parse_and_format_csv
+from source.settings import setting
 
 
 import tiktoken
@@ -74,30 +67,22 @@ class DocumentIngestionPipeline:
     '''
     Ingest document to ElasticSearch server and Qdrant server
     '''
-
-    setting: setting
-    llm: OpenAI
-    extractor: KeywordExtractor
     
     def __init__(self, setting):
+        ic(setting)
         self.setting = setting
 
         # Initialize model and database
         self.embed_model = OpenAIEmbedding(model=setting.embed_model, api_key=os.getenv('OPENAI_API_KEY'))
-        self.llm = self.load_llm(setting.model_name)
-        self.keyword_extractor = KeywordExtractor(
-                                nodes=1,
-                                llm = self.llm,
-                                prompt_template = METADATA_PROMPT
-                        )
-
+        
+        Settings.embed_model = self.embed_model
+        
         self.es = ElasticSearch(
             url=setting.elastic_search_url, index_name=setting.elastic_search_index_name
         )
         self.qdrant_client = QdrantVectorDatabase(url=setting.qdrant_url)
 
-    def load_llm(self, model_name):
-        return OpenAI(model=model_name)
+        self.openai_client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
     def get_embedding(
         self,
@@ -117,125 +102,6 @@ class DocumentIngestionPipeline:
         
         return self.embed_model.get_text_embedding(chunk)
 
-    def preprocess_message(self, messages: Sequence[ChatMessage]):
-        '''
-        Preprocess the message for the LLM response
-
-        Args:
-            message (Sequence[ChatMessage]): The message to preprocess
-
-        Returns: 
-            Sequence[ChatMessage]: the preprocessed message
-        '''
-        return messages
-
-
-    def add_contextual_content(
-        self,
-        chapter: Document, 
-        articles: list[Document],
-        chapter_id: int,
-        chapter_uuid: str,
-    ):
-        '''
-        Adding context to each chunk base on chapter content, article title, chapter title, document title, chunk content
-
-        Args:
-            chapter (Document): a chapter in the document
-            articles (list[Document]): articles belong to this chapter in the document
-            chapter_id (int): chapter index
-            chapter_uuid: unique id for each chapter
-        Returns:
-            list[Document]:  list of document instance (used for qdrant)
-            list[DocumentMetadata]: list of document metadata instance (used for elasticsearch)
-        '''
-
-        documents: list[Document] = []
-        documents_metadata: list[DocumentMetadata] = []
-
-        for idx, chunk in enumerate(articles):
-            messages = [
-                ChatMessage(
-                    role='system',
-                    content="Bạn là một trợ lý AI chuyên nghiệp, được thiết kế để cung cấp ngữ cảnh súc tích và rõ ràng cho các 'Điều' trong một 'Chương' cụ thể của Luật pháp Việt Nam"
-                ),
-                ChatMessage(
-                    role='user',
-                    content=CONTEXTUAL_PROMPT.format(
-                        WHOLE_DOCUMENT=chapter.text,
-                        ARTICLE_TITLE=chunk.metadata['article_title'],
-                        CHAPTER_TITLE=chunk.metadata['chapter_title'],
-                        TITLE=chunk.metadata['ten_luat'],
-                        CHUNK_CONTENT=chunk.text
-                    )
-                )
-            ]
-
-            response = self.llm.chat(self.preprocess_message(messages))
-            contextualized_article_content = response.message.content
-
-            new_chunk = contextualized_article_content + '\n\n' + chunk.metadata['article_title'] + '\n' + chunk.text
-
-            chunk_id = f'chapter{chapter_id}_article{idx}'
-            article_uuid = str(uuid.uuid4())
-            documents.append(
-                Document(
-                    text=new_chunk,
-                    metadata = dict(
-                        chapter_id = f'chapter{chapter_id}',
-                        chapter_uuid = chapter_uuid,
-                        article_id = chunk_id,
-                        article_uuid = article_uuid,
-                        article_content = chunk.metadata['article_title'] + '\n' + chunk.text,    
-                        contextualized_article_content = contextualized_article_content
-                    )
-                )
-            )
-
-            documents_metadata.append(
-                DocumentMetadata(
-                        new_chunk = new_chunk,
-                        chapter_id = f'chapter{chapter_id}',
-                        chapter_uuid = chapter_uuid,
-                        article_id = chunk_id,
-                        article_uuid = article_uuid,
-                        article_content = chunk.metadata['article_title'] + '\n' + chunk.text,
-                        contextualized_article_content = contextualized_article_content,
-                ),
-            )
-
-        return documents, documents_metadata
-
-    def get_contextual_documents(self, splitted_chapters: list[Document], splitted_articles: list[list[Document]]):
-        '''
-        Get the contextual documents from the splitted chapters and articles
-
-        Args:
-            splitted_chapters (list[Document]): List of chapters in the document
-            splitted_articles (list[list[Document]]): List of list of articles in the document which a list of article is a chapter
-
-        Return:
-            list[Document]: used for ingest Qdrant Server
-            list[DocumentMetadata]: used for ingest ElasticSearch Server 
-        '''
-        chapter_id = 0
-        documents: list[Document] = []
-        documents_metadata: list[DocumentMetadata] = []
-
-        for chapter, articles in tqdm(
-            zip(splitted_chapters, splitted_articles), 
-            desc='Adding contextual content for each document...',
-            total=len(splitted_articles)
-        ):
-            chapter_uuid = str(uuid.uuid4())
-            document, metadata = self.add_contextual_content(chapter, articles, chapter_id, chapter_uuid)
-
-            documents.extend(document)
-            documents_metadata.extend(metadata)
-
-            chapter_id += 1
-
-        return documents, documents_metadata
 
     def ingest_data_elastic(
         self, 
@@ -278,9 +144,8 @@ class DocumentIngestionPipeline:
             type: mode to ingest (origin or contextual)
             
         '''
-        ic(documents[0].metadata['article_content'])
         
-        vectors = [self.get_embedding(doc.text) for doc in tqdm(documents, desc='Getting embeddings ...')]
+        vectors = [self.get_embedding(doc.text) for doc in documents]
         payloads = [
             QdrantPayload(
                 chapter_uuid = doc.metadata['chapter_uuid'],
@@ -299,31 +164,104 @@ class DocumentIngestionPipeline:
             vector_ids = [doc.metadata['article_uuid'] for doc in documents]
         )
 
-    def run_ingest(
+    def get_context(
         self,
-        folder_dir: str,
-        type: Literal['origin', 'contextual', 'both'] = 'contextual'
+        chunk: str,
+        chapter_title: str,
+        article_title: str,
+        sarticle_position,
+        full_article_content,
+        decree_name: str = "Quy định xử phạt vi phạm hành chính về trật tự, an toàn giao thông trong lĩnh vực giao thông đường bộ; trừ điểm, phục hồi giấy phép lái xe",
+    ):
+        response = self.openai_client.chat.completions.create(
+            model="gpt-4o-mini",
+            temperature=0.1,
+            response_format={ 
+                "type": "json_object"
+            },
+            messages = [
+                {
+                    "role": "system",
+                    "content": (
+                        "Bạn là một trợ lý pháp lý thông minh, có nhiệm vụ tạo context cho từng đoạn văn bản pháp luật (chunk) "
+                        "để hỗ trợ truy vấn ngữ nghĩa (contextual RAG)."
+                    ),
+                },
+                {
+                    "role": "user",
+                    "content": CONTEXTUAL_PROMPT.format(
+                        DECREE_NAME=decree_name,
+                        CHAPTER_NAME=chapter_title,
+                        ARTICLE_TITLE=article_title, 
+                        SARTICLE_POSITION=sarticle_position,
+                        FULL_ARTICLE_CONTENT=full_article_content,
+                        CHUNK_CONTENT=chunk,
+                    ),
+                },
+            ]
+        )
+        return json.loads(response.choices[0].message.content)['context']
+
+
+    def run_ingest_from_csv(
+        self,
+        folder_path: str,
     ) -> None:
-        '''
-        Run the ingest process for Retrieval Augmented Generation System
-
-        Args:
-            folder_dir (str | Path): The folder directory containing documents
-            type: Literal['origin, contextual', 'both']: The type to ingest. Default `contextual`
-        '''
-
-        # raw_documents = parse_multiple_files(folder_dir)
-        # ic(len(raw_documents))
-        # splitted_chapters, splitted_articles = split_documents(self.keyword_extractor, raw_documents) 
         
-        #splitted_chapters, splitted_articles = parse_and_format_csv(folder_dir)
-        
-        #ic(len(splitted_chapters), len(splitted_articles))
-        #contextual_documents, contextual_documents_metadata = (
-        #    self.get_contextual_documents(splitted_chapters, splitted_articles)
-        #)
+        lst_csv_paths = glob.glob(os.path.join(folder_path, '*.csv'))
+        for csv_path in lst_csv_paths: 
+            contextual_documents : list[Document] = []
+            contextual_documents_metadata: list[DocumentMetadata] = []
+            df = pd.read_csv(csv_path)
+            
+            for i, row in tqdm(df.iterrows(), total=len(df)):
+                chunk = row['Chunk']
+                chapter_title = row['chapter_title']
+                article_title = row['article_title'] 
+                sarticle_position = row['sarticle_position']
+                
+                if pd.isna(sarticle_position):
+                    full_article_content = None
+                else:
+                    full_article_content = row['full_article_content']
 
-        # Ingest data to Vector DB
-        self.ingest_data_qdrant(contextual_documents)
-        self.ingest_data_elastic(contextual_documents_metadata)
-    
+                contextual_content = self.get_context(chunk, chapter_title, article_title, sarticle_position, full_article_content)
+                new_chunk = contextual_content + '\n\n' + chunk
+                article_uuid = str(uuid.uuid4())
+            
+                
+                contextual_documents.append(
+                    Document(
+                            text=new_chunk,
+                            metadata = dict(
+                                chapter_id = '',
+                                chapter_uuid = '',
+                                article_id = '',
+                                article_uuid = article_uuid,
+                                article_content = chunk,    
+                                contextualized_article_content = contextual_content
+                            )
+                        )
+                )
+                
+                contextual_documents_metadata.append(
+                    DocumentMetadata(
+                                new_chunk = new_chunk,
+                                chapter_id = '',
+                                chapter_uuid = '',
+                                article_id = '',
+                                article_uuid = article_uuid,
+                                article_content = chunk,
+                                contextualized_article_content = contextual_content,
+                        ),
+                )
+            ic(len(contextual_documents))
+            ic(len(contextual_documents_metadata))
+
+            self.ingest_data_qdrant(contextual_documents)
+            self.ingest_data_elastic(contextual_documents_metadata)
+
+if __name__ == '__main__':
+    ingestor = DocumentIngestionPipeline(setting)
+    folder_dir = '/workspace/competitions/Sly/Duy_NCKH_2025/sample'
+    ingestor.run_ingest_from_csv(folder_dir)

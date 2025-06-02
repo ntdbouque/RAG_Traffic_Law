@@ -7,15 +7,8 @@ from icecream import ic
 from source.rag.retrieval import RetrievalPipeline
 from source.settings import Settings
 
-# query = 'Tôi bị tai nạn giao thông, tôi phải làm gì?'
-# bot = ChatbotTrafficLawRAG()
-# ic(bot.predict(query))
 
-
-query = 'Tôi bị tai nạn giao thông, tôi phải làm gì?'
-# setting = Settings()
-# ic(setting)
-#retriever = RetrievalPipeline(setting.elastic_search_index_name, setting.contextual_rag_collection_name)
+query = 'người được chở trên xe máy mà sử dụng ô dù thì bị phạt thế nào?'
 retriever = RetrievalPipeline()
-response = retriever.query(query)
-ic(response)
+response = retriever.retrieve(query)
+ic(response[0:3])

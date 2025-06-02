@@ -1,6 +1,6 @@
 from config.config import get_config
 
-cfg = get_config("config/config.yaml")
+cfg = get_config("/workspace/competitions/Sly/Duy_NCKH_2025/config/config.yaml")
 
 # Generation model configuration
 STREAM = cfg.MODEL.STREAM
@@ -22,15 +22,35 @@ QA_PROMPT = (
 EMBEDDING_MODEL = cfg.CONTEXTUAL_RAG.EMBEDDING_MODEL
 CONTEXTUAL_SERVICE = cfg.CONTEXTUAL_RAG.SERVICE
 
-CONTEXTUAL_PROMPT = """<document>
-{WHOLE_DOCUMENT}
-</document>
-Đây là đoạn nội dung mà chúng ta muốn đặt trong ngữ cảnh của toàn bộ tài liệu
-Bên dưới đây là {ARTICLE_TITLE} mà tôi muốn bạn đặt vào trong ngữ cảnh của chương {CHAPTER_TITLE} trong {TITLE}
-<chunk>
+CONTEXTUAL_PROMPT = """\
+Dưới đây là thông tin bổ sung về ngữ cảnh của chunk này:
+
+- **Tên nghị định**: {DECREE_NAME}
+- **Tên chương**: {CHAPTER_NAME}
+- **Vị trí của khoản trong điều**: {SARTICLE_POSITION}
+- **Toàn bộ nội dung của điều chứa chunk**: {ARTICLE_TITLE}:\n{FULL_ARTICLE_CONTENT}
+
+---
+
+### Chunk đầu vào:
 {CHUNK_CONTENT}
-</chunk>
-Vui lòng cung cấp một bối cảnh ngắn gọn, súc tích để đặt đoạn nội dung này trong ngữ cảnh của toàn bộ tài liệu nhằm cải thiện khả năng tìm kiếm và truy xuất đoạn nội dung. Chỉ trả lời bằng bối cảnh ngắn gọn và không thêm nội dung khác.
+
+---
+
+### Yêu cầu:
+Hãy viết **một câu ngắn gọn** nhằm mô tả ngữ cảnh tổng quát của chunk, giúp định vị nội dung trong toàn bộ tài liệu nhằm cải thiện khả năng tìm kiếm.
+
+**Yêu cầu cụ thể:**
+- Không lặp lại nguyên văn nội dung chunk.
+- Không cần nêu rõ số điều, khoản, nghị định.
+- Không liệt kê các chi tiết cụ thể hay hành vi rời rạc.
+- Phải làm rõ **đối tượng áp dụng** của quy định (ví dụ xe thì là xe gì, người thì đó là cá nhân, cơ quan hay tổ chức nào).
+- Câu mô tả cần mang tính tổng quát, đủ rõ ràng để người đọc hình dung được chủ đề chính.
+
+**Chỉ trả lời đúng 1 câu mô tả nội dung chính của chunk, và trả lời dưới dạng JSON với cấu trúc sau:**
+
+```json
+{{"context": "Nội dung câu mô tả chính của chunk"}}
 """
 
 METADATA_PROMPT = '''
@@ -53,36 +73,14 @@ Văn bản:
 - Địa điểm ban hành: [Địa điểm]
 '''
 
-SPECIAL_CASE = ['phần', 'chương', 'mục', 'tiểu mục', 'điều']
-
-CONTEXTUAL_CHUNK_SIZE = cfg.CONTEXTUAL_RAG.CHUNK_SIZE
 CONTEXTUAL_MODEL = cfg.CONTEXTUAL_RAG.MODEL
 
-#ORIGINAL_RAG_COLLECTION_NAME = cfg.CONTEXTUAL_RAG.ORIGIN_RAG_COLLECTION_NAME
 CONTEXTUAL_RAG_COLLECTION_NAME = cfg.CONTEXTUAL_RAG.CONTEXTUAL_RAG_COLLECTION_NAME
-
-# CONTEXTUAL_RAG_COLLECTION_NAME_1 = cfg.CONTEXTUAL_RAG.CONTEXTUAL_RAG_COLLECTION_NAME_1
-# CONTEXTUAL_RAG_COLLECTION_NAME_2 = cfg.CONTEXTUAL_RAG.CONTEXTUAL_RAG_COLLECTION_NAME_2
-# CONTEXTUAL_RAG_COLLECTION_NAME_3 = cfg.CONTEXTUAL_RAG.CONTEXTUAL_RAG_COLLECTION_NAME_3
-# CONTEXTUAL_RAG_COLLECTION_NAME_4 = cfg.CONTEXTUAL_RAG.CONTEXTUAL_RAG_COLLECTION_NAME_4
-# CONTEXTUAL_RAG_COLLECTION_NAME_5 = cfg.CONTEXTUAL_RAG.CONTEXTUAL_RAG_COLLECTION_NAME_5
-# CONTEXTUAL_RAG_COLLECTION_NAME_6 = cfg.CONTEXTUAL_RAG.CONTEXTUAL_RAG_COLLECTION_NAME_6
-# CONTEXTUAL_RAG_COLLECTION_NAME_7 = cfg.CONTEXTUAL_RAG.CONTEXTUAL_RAG_COLLECTION_NAME_7
 
 QDRANT_URL = cfg.CONTEXTUAL_RAG.QDRANT_URL
 ELASTIC_SEARCH_URL = cfg.CONTEXTUAL_RAG.ELASTIC_SEARCH_URL
 ELASTIC_SEARCH_INDEX_NAME = cfg.CONTEXTUAL_RAG.ELASTIC_SEARCH_INDEX_NAME
-# ELASTIC_SEARCH_INDEX_NAME_1 = cfg.CONTEXTUAL_RAG.ELASTIC_SEARCH_INDEX_NAME_1
-# ELASTIC_SEARCH_INDEX_NAME_2 = cfg.CONTEXTUAL_RAG.ELASTIC_SEARCH_INDEX_NAME_2
-# ELASTIC_SEARCH_INDEX_NAME_3 = cfg.CONTEXTUAL_RAG.ELASTIC_SEARCH_INDEX_NAME_3
-# ELASTIC_SEARCH_INDEX_NAME_4 = cfg.CONTEXTUAL_RAG.ELASTIC_SEARCH_INDEX_NAME_4
-# ELASTIC_SEARCH_INDEX_NAME_5 = cfg.CONTEXTUAL_RAG.ELASTIC_SEARCH_INDEX_NAME_5
-# ELASTIC_SEARCH_INDEX_NAME_6 = cfg.CONTEXTUAL_RAG.ELASTIC_SEARCH_INDEX_NAME_6
-# ELASTIC_SEARCH_INDEX_NAME_7 = cfg.CONTEXTUAL_RAG.ELASTIC_SEARCH_INDEX_NAME_7
 
-
-
-NUM_CHUNKS_TO_RECALL = cfg.CONTEXTUAL_RAG.NUM_CHUNKS_TO_RECALL
 SEMANTIC_WEIGHT = cfg.CONTEXTUAL_RAG.SEMANTIC_WEIGHT
 BM25_WEIGHT = cfg.CONTEXTUAL_RAG.BM25_WEIGHT
 TOP_N = cfg.CONTEXTUAL_RAG.TOP_N

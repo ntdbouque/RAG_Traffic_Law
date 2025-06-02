@@ -1,0 +1,6 @@
+EXPERIMENT_NAME | CONFIG | RESULTS | collection_name
+1 | old_index; with_vector_retriever_index; top_k_bm25=50; top_k_semantic=100; top_k_rerank=3 | 66.8275 | trduy_test
+2 | old_index; with_vector_retriever_index; top_k_bm25=50; top_k_semantic=100; without_rerank | 44.xxxx | trduy_test
+3 | with_finetuned_context_finetuned_chunk; with_vector_retriever_index; top_k_bm25=50; top_k_semantic=100; top_k_rerank=10; top_k_combined=30 | trduy_test2
+4 | without_context_finetuned_chunk;  with_vector_retriever_index, top_k_bm25=50; top_k_semantic=100; top_k_rerank=10; top_k_combined=30 | 75.56 | trduy_test1
+5 | with_document_selection; with_finetune_context_finetuned_chunk; with_vector_retriever_index; top_k_bm25=50; top_k_semantic=100; top_k_rerank=10; top_k_combined=30 | | trduy_test2

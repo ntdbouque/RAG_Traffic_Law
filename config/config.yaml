@@ -5,40 +5,18 @@ MODEL: # config for generation model
     MODEL_ID: gpt-4o-mini
 
 CONTEXTUAL_RAG: # config for contextual RAG (contextual chunk, embedding)
-    CHUNK_SIZE: 1024 
     SERVICE: 'openai'
     MODEL: "gpt-4o-mini"
-    EMBEDDING_MODEL: text-embedding-ada-002
-
-    ORIGIN_RAG_COLLECTION_NAME: "origin_rag_test" # dont use
+    EMBEDDING_MODEL: text-embedding-3-large
 
     # qdrant
-    CONTEXTUAL_RAG_COLLECTION_NAME: 'contextual_rag_1' 
+    CONTEXTUAL_RAG_COLLECTION_NAME: 'trduy_test1' 
 
-    # CONTEXTUAL_RAG_COLLECTION_NAME_1: "35_2024_qh15"
-    # CONTEXTUAL_RAG_COLLECTION_NAME_2: "36_2024_qh15"
-    # CONTEXTUAL_RAG_COLLECTION_NAME_3: "100_2019_nd_cp"
-    # CONTEXTUAL_RAG_COLLECTION_NAME_4: "160_2024_nd_cp"
-    # CONTEXTUAL_RAG_COLLECTION_NAME_5: "161_2024_nd_cp"
-    # CONTEXTUAL_RAG_COLLECTION_NAME_6: "165_2024_nd_cp"
-    # CONTEXTUAL_RAG_COLLECTION_NAME_7: "168_2024_nd_cp"
-
-    QDRANT_URL: "http://localhost:6333"
-    ELASTIC_SEARCH_URL: "http://localhost:9200"
+    QDRANT_URL: "http://localhost:7333"
+    ELASTIC_SEARCH_URL: "http://localhost:8200"
 
     # elastic
-    ELASTIC_SEARCH_INDEX_NAME: 'contextual_rag_1' 
-
-    # ELASTIC_SEARCH_INDEX_NAME_1: "35_2024_qh15"
-    # ELASTIC_SEARCH_INDEX_NAME_2: "36_2024_qh15"
-    # ELASTIC_SEARCH_INDEX_NAME_3: "100_2019_nd_cp"
-    # ELASTIC_SEARCH_INDEX_NAME_4: "160_2024_nd_cp"
-    # ELASTIC_SEARCH_INDEX_NAME_5: "161_2024_nd_cp"
-    # ELASTIC_SEARCH_INDEX_NAME_6: "165_2024_nd_cp"
-    # ELASTIC_SEARCH_INDEX_NAME_7: "168_2024_nd_cp"
-
-
-    NUM_CHUNKS_TO_RECALL: 20
+    ELASTIC_SEARCH_INDEX_NAME: 'trduy_test1' 
     SEMANTIC_WEIGHT: 0.8
     BM25_WEIGHT: 0.2
 

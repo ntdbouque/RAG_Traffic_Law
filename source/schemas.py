@@ -5,14 +5,10 @@ class RAGType:
     RAG type schema.
 
     Attributes:
-        ORIGIN (str): Origin RAG type.
         CONTEXTUAL (str): Contextual RAG type.
-        BOTH (str): Both Origin and Contextual RAG type.
     """
 
-    ORIGIN = "origin"
     CONTEXTUAL = "contextual"
-    BOTH = "both"
 
 class DocumentMetadata(BaseModel):
     """

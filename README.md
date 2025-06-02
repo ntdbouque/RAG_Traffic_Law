@@ -1,73 +1,17 @@
-## **Legal advice on road traffic regulations using advanced RAG.**
+# Dự án Đánh giá Hệ thống Truy vấn Văn bản Pháp luật
 
-![](./public/contextual_rag.png)
+Dự án này nhằm xây dựng, đánh giá và cải thiện hệ thống truy vấn tài liệu pháp luật dựa trên ngữ nghĩa. Dưới đây là hướng dẫn sử dụng các module chính trong hệ thống.
 
-### **Table of Contents**
+---
 
-1. [**Installation**](#installation)
+## 📁 Cấu trúc Dữ liệu
 
-2. [**Ingest Data**](#ingest-data-examples)
+- `sample/output_with_full_article_content.csv`: 
 
-3. [**Continuous Ingestion**](#continuous-ingestion)
+---
 
-4. [**File Readers**](#file-readers)
-
-5. [**Example Usage**](#example-usage)
-
-
-### **Installation**
-
-To install this application, follow these steps:
-
-**1. Clone the repository:**
-
-```bash
-git clone https://github.com/ntdbouque/RAG_Traffic_Law.git
-cd RAG_Traffic_Law
-```
-
-**2. (Optional) Create and activate a virtual environment:**
-
--   For Unix/macOS:
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
-
--   For Windows:
-
-```bash
-python -m venv venv
-.\venv\Scripts\activate
-```
-
-> Note: Please downgrade to `python3.11` if any conflicts occur.
-
-**3. Install the required dependencies:**
-
-```bash
-pip install -r requirements.txt
-```
-
-**5. Run database:**
-
-```bash
-docker compose up -d
-```
-
-**6. Config URL for database**: In [config/config.yaml](./config/config.yaml), please modify urls of QdrantVectorDB and ElasticSearch:
-
-```yml
-...
-CONTEXTUAL_RAG:
-    ...
-    QDRANT_URL: <fill here>
-
-    ELASTIC_SEARCH_URL: <fill here>
-```
-
-**8. Setup API Keys:** Please create `.env` file and provide these API keys:
+## Setup API key: 
+Please create `.env` file and provide these API keys:
 
 |         NAME          |                     Where to get ?                      |
 | :-------------------: | :-----------------------------------------------------: |
@@ -75,65 +19,77 @@ CONTEXTUAL_RAG:
 | `LLAMA_PARSE_API_KEY` |    [LlamaCloud](https://cloud.llamaindex.ai/api-key)    |
 |   `COHERE_API_KEY`    |     [Cohere](https://dashboard.cohere.com/api-keys)     |
 
-https://github.com/user-attachments/assets/b45c9687-278b-4953-9b5b-31fa53db0c8c
+## Setup Elasticsearch and Qdrant Client
+```bash
+docker compose up -d
+```
 
----
+## Cài đặt:
+```bash
+pip install -r requirements.txt
+```
 
-### **Ingest data (Examples)**
+## Hướng dẫn sử dụng 
+
+### 1. `run/run_ingest_from_csv.py` – Thêm ngữ cảnh từ tệp CSV đã được thêm ngữ cảnh
+
+Script này dùng để ingest data đã được xử lí vào file csv
 
 ```bash
-python source/run/contextual_rag_ingest.py both sample/
+python run/run_ingest_from_csv.py \
+  --csv_folder sample_output_with_full_article_content.csv \
 ```
+**Tham số:**
+`--csv_folder`: đường dẫn đến folder chứa các file csv cần ingest
 
-### **Continuous Ingestion**
-
--   You can add more file paths or even folder paths:
+### 2. `run_generating_qa.py` 
+Script này dùng để tạo ra bộ dataset qa để đánh giá khả năng truy vấn
 
 ```bash
-python source/run/add_files.py --type both --files a.pdf b.docx
+python run/run_generating_qa.py \
+ --output_path path_to_save_your_qa.json\
+ --num_questions 2
 ```
+**Tham số:**
+`--output_path`: đường dẫn để lưu bộ question-answering dataset 
+`--num_questions`: số lượng câu hỏi được tạo ra từ mỗi chunk
 
----
+### 3. `evaluator/run_retrieval_evaluation.ipynb`
+Tham khảo notebook trên để đánh giá `retriever` một câu và toàn bộ dataset
 
-### **File Readers**
+### 4. 
 
+### -1. Example Usage:
 
-| File extension |        Reader        |
-| :------------: | :------------------: |
-|     `.pdf`     |     `LlamaParse`     |
-
--   Example usage of `LlamaParse`:
-
+- **`test_retrieval.py`:** 
 ```python
-import os
-from pathlib import Path
-from dotenv import load_dotenv
-from llama_index.readers.llama_parse import LlamaParse
-
-load_dotenv()
-
-loader = LlamaParse(result_type="markdown", api_key=os.getenv("LLAMA_PARSE_API_KEY"))
-
-documents = loader.load_data(Path("sample/2409.13588v1.pdf"))
-
-...
-```
-### **Example Usage**
-
--   **1. Contextual RAG**
-```python
-import os
-import sys
-from pathlib import Path
-sys.path.append(str(Path(__file__).parent.parent.parent))
-
-from icecream import ic
-
-from source.settings import setting as ConfigSetting
 from source.rag.retrieval import RetrievalPipeline
-
-RetrievalPipeline = RetrievalPipeline(ConfigSetting)
-query = 'Tôi bị tai nạn giao thông, tôi phải làm gì?'
-response = RetrievalPipeline.hybrid_rag_search(query)
-ic(response)
+from source.settings import Settings
 ```
+
+query = 'người được chở trên xe máy mà sử dụng ô dù thì bị phạt thế nào?'
+retriever = RetrievalPipeline()
+response = retriever.retrieve(query)
+```
+- **`test_query_engnie.py`:**
+```python 
+retriever = RetrievalPipeline()
+llm = OpenAI(
+                model=setting.model_name,
+                api_key=os.getenv("OPENAI_API_KEY"),
+                logprobs=None,
+                default_headers={},
+            )
+synthesizer = get_response_synthesizer(response_mode="compact")
+
+
+query = 'Tôi lái xe hơi mà trong hơi thở có nồng độ cồn thì sao?'
+my_query_engine = MyQueryEngine(
+    retriever=retriever,
+    response_synthesizer=synthesizer,
+    llm=llm,
+    qa_prompt=PromptTemplate(QA_PROMPT),
+)
+response = my_query_engine.query(query)
+```
+
