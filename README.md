@@ -3,7 +3,7 @@
 ---
 
 ## Pipeline Overview:
-![Pipeline](/workspace/competitions/Sly/Duy_NCKH_2025/asset/DACS2/DACS2-overview-pipeline.drawio.png)
+![Pipeline](/asset/DACS2/DACS2-overview-pipeline.drawio.png)
 
 ---
 
