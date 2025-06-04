@@ -2,11 +2,60 @@ from config.config import get_config
 
 cfg = get_config("/workspace/competitions/Sly/Duy_NCKH_2025/config/config.yaml")
 
-# Generation model configuration
-STREAM = cfg.MODEL.STREAM
-SERVICE = cfg.MODEL.SERVICE
-TEMPERATURE = cfg.MODEL.TEMPERATURE
-MODEL_ID = cfg.MODEL.MODEL_ID
+
+CUSTOM_REFINE_PROMPT =  (
+    "Câu hỏi ban đầu như sau: {query_str}\n"
+    "Chúng ta hiện đang có câu trả lời tạm thời như sau:\n"
+    "-------------------\n"
+    "{existing_answer}\n"
+    "-------------------\n"
+    "Dưới đây là ngữ cảnh pháp lý mới được bổ sung:\n"
+    "-------------------\n"
+    "{context_msg}\n"
+    "-------------------\n"
+    "Dựa vào thông tin mới, bạn hãy điều chỉnh lại câu trả lời trên **nếu cần thiết**, và đảm bảo tuân thủ cấu trúc trả lời như sau:\n"
+    "- Nhắc lại câu hỏi.\n"
+    "- Trả lời thẳng vào câu hỏi.\n"
+    "- Ghi rõ điều/khoản/chương/văn bản pháp luật đã tham chiếu.\n"
+    "- Trích dẫn nội dung đầy đủ hoặc súc tích của đoạn luật tương ứng.\n"
+    "Nếu thông tin mới không hữu ích, hãy giữ nguyên câu trả lời cũ.\n"
+    "Câu trả lời đã chỉnh sửa (nếu có):"
+)
+
+CUSTOM_OPENAI_SUB_QUESTION_PROMPT = """\
+You are a world class state of the art agent.
+
+You have access to multiple tools, each representing a different data source or API.
+Each of the tools has a name and a description, formatted as a JSON dictionary.
+The keys of the dictionary are the names of the tools and the values are the \
+descriptions.
+Your purpose is to help answer a complex user question by generating a list of sub \
+questions that can be answered by the tools.
+
+These are the guidelines you consider when completing your task:
+* Be as specific as possible
+* The sub questions should be relevant to the user question
+* The sub questions should be answerable by the tools provided
+* You can generate multiple sub questions for each tool
+* Tools must be specified by their name, not their description
+* You don't need to use a tool if you don't think it's relevant
+
+## Example
+**Query:** Tôi không đội nón bảo hiểm khi tham gia giao thông và gây tai nạn thì bị phạt thế nào?
+- **Sub-question 1:** Hành vi không đội nón bảo hiểm khi tham gia giao thông bị phạt như thế nào?
+- **Sub-question 2:** Nếu không đội nón bảo hiểm và gây tai nạn thì sẽ bị phạt ra sao?
+
+
+Output the list of sub questions by calling the SubQuestionList function.
+
+## Tools
+```json
+{tools_str}
+```
+
+## User Question
+{query_str}
+"""
 
 QA_PROMPT = (
     "Dưới đây là một nội dung của một Điều/hoặc những Khoản nhỏ của một điều trích từ một thông tư/nghị định/luật: \n"
@@ -14,65 +63,12 @@ QA_PROMPT = (
     "{context_str}"
     "\n---------------------\n"
     "Dựa vào thông tin trên, hãy trả lời câu hỏi sau: {query_str}\n\
-    Lưu ý luôn luôn suy nghĩ kĩ trước khi trả lời. Để trả lời câu hỏi vế đầu tiên bạn phải trích dẫn lại ý chính của câu hỏi và trả lời thẳng vào câu hỏi.\
-    Sau đó trích dẫn lại nội dung bạn đã tham chiếu kèm theo vị trí của đoạn tham chiếu đó trong Luật. Nếu không biết hãy trả lời thành thật và không đưa ra thông tin sai lệch"
+    Lưu ý luôn luôn suy nghĩ kĩ trước khi trả lời. Để trả lời câu hỏi vế đầu tiên bạn phải trích dẫn lại ý chính của câu hỏi và trả lời thẳng vào câu hỏi kèm theo vị trí của điều/chương/luật.\
+    Sau đó trích dẫn lại nội dung bạn đã tham chiếu. Nếu không biết hãy trả lời thành thật và không đưa ra thông tin sai lệch"
 )
 
 # Contextual RAG configuration
 EMBEDDING_MODEL = cfg.CONTEXTUAL_RAG.EMBEDDING_MODEL
-CONTEXTUAL_SERVICE = cfg.CONTEXTUAL_RAG.SERVICE
-
-CONTEXTUAL_PROMPT = """\
-Dưới đây là thông tin bổ sung về ngữ cảnh của chunk này:
-
-- **Tên nghị định**: {DECREE_NAME}
-- **Tên chương**: {CHAPTER_NAME}
-- **Vị trí của khoản trong điều**: {SARTICLE_POSITION}
-- **Toàn bộ nội dung của điều chứa chunk**: {ARTICLE_TITLE}:\n{FULL_ARTICLE_CONTENT}
-
----
-
-### Chunk đầu vào:
-{CHUNK_CONTENT}
-
----
-
-### Yêu cầu:
-Hãy viết **một câu ngắn gọn** nhằm mô tả ngữ cảnh tổng quát của chunk, giúp định vị nội dung trong toàn bộ tài liệu nhằm cải thiện khả năng tìm kiếm.
-
-**Yêu cầu cụ thể:**
-- Không lặp lại nguyên văn nội dung chunk.
-- Không cần nêu rõ số điều, khoản, nghị định.
-- Không liệt kê các chi tiết cụ thể hay hành vi rời rạc.
-- Phải làm rõ **đối tượng áp dụng** của quy định (ví dụ xe thì là xe gì, người thì đó là cá nhân, cơ quan hay tổ chức nào).
-- Câu mô tả cần mang tính tổng quát, đủ rõ ràng để người đọc hình dung được chủ đề chính.
-
-**Chỉ trả lời đúng 1 câu mô tả nội dung chính của chunk, và trả lời dưới dạng JSON với cấu trúc sau:**
-
-```json
-{{"context": "Nội dung câu mô tả chính của chunk"}}
-"""
-
-METADATA_PROMPT = '''
-Từ đoạn văn bản dưới đây, hãy trích xuất các thông tin sau một cách rõ ràng và chính xác:
-
-1. Tiêu đề: tiêu đề của bộ luật (ví dụ Luật Dân Sự)
-2. Số của luật: Số hiệu hoặc mã số của bộ luật  
-3. Ngày tháng năm ban hành: Ngày, tháng, năm mà luật được ban hành hoặc thông qua (định dạng DD/MM/YY).  
-4. Địa điểm ban hành: Địa điểm hoặc cơ quan ban hành luật (nếu có thông tin).  
-
-Nếu không tìm thấy một trong các thông tin trên, hãy ghi rõ 'Không có thông tin'.
-
-Văn bản:
-'{context_str}'
-
-Định dạng đầu ra:
-- Tiêu đề: [Tiêu đề]
-- Luật số: [Số hiệu]
-- Ngày tháng năm ban hành: [Ngày tháng năm]
-- Địa điểm ban hành: [Địa điểm]
-'''
-
 CONTEXTUAL_MODEL = cfg.CONTEXTUAL_RAG.MODEL
 
 CONTEXTUAL_RAG_COLLECTION_NAME = cfg.CONTEXTUAL_RAG.CONTEXTUAL_RAG_COLLECTION_NAME
@@ -83,9 +79,6 @@ ELASTIC_SEARCH_INDEX_NAME = cfg.CONTEXTUAL_RAG.ELASTIC_SEARCH_INDEX_NAME
 
 SEMANTIC_WEIGHT = cfg.CONTEXTUAL_RAG.SEMANTIC_WEIGHT
 BM25_WEIGHT = cfg.CONTEXTUAL_RAG.BM25_WEIGHT
-TOP_N = cfg.CONTEXTUAL_RAG.TOP_N
 
 SUPPORTED_FILE_EXTENSIONS = [".pdf"]
 
-# Agent configuration
-AGENT_TYPE = cfg.AGENT.TYPE

@@ -1,26 +1,15 @@
-MODEL: # config for generation model
-    TEMPERATURE: 0.2
-    STREAM: False
-    SERVICE: 'openai'
-    MODEL_ID: gpt-4o-mini
-
 CONTEXTUAL_RAG: # config for contextual RAG (contextual chunk, embedding)
-    SERVICE: 'openai'
     MODEL: "gpt-4o-mini"
     EMBEDDING_MODEL: text-embedding-3-large
 
     # qdrant
-    CONTEXTUAL_RAG_COLLECTION_NAME: 'trduy_test1' 
+    CONTEXTUAL_RAG_COLLECTION_NAME: 'trduy_test3' 
 
     QDRANT_URL: "http://localhost:7333"
     ELASTIC_SEARCH_URL: "http://localhost:8200"
 
     # elastic
-    ELASTIC_SEARCH_INDEX_NAME: 'trduy_test1' 
+    ELASTIC_SEARCH_INDEX_NAME: 'trduy_test3' 
     SEMANTIC_WEIGHT: 0.8
     BM25_WEIGHT: 0.2
 
-    TOP_N: 3
-
-AGENT: 
-    TYPE: 'openai'
