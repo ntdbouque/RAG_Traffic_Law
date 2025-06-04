@@ -25,3 +25,8 @@ Update so với NCKH
     khác như thẩm quyền, thủ tục xử phạt, trừ điểm,..(nằm trong chương 3 NĐ 168/2024) chưa giải quyết được
     do những thông tin hypertext
 
+    + Chưa Evaluation Response
+
+- Kết quả:
+    + Retrieval Eval Metric (MRR): 75.56 (mức cao) -> Tập retrieval eval được sinh ra từ nhiều đoạn chunk bị lỗi
+
