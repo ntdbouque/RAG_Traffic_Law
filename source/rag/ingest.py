@@ -37,13 +37,11 @@ from source.schemas import (
 )
 
 from source.constants import (
-    CONTEXTUAL_PROMPT,
     QA_PROMPT,
     CONTEXTUAL_MODEL,
 )
 
 from source.settings import setting
-
 
 import tiktoken
 
@@ -215,21 +213,22 @@ class DocumentIngestionPipeline:
             df = pd.read_csv(csv_path)
             
             for i, row in tqdm(df.iterrows(), total=len(df)):
-                chunk = row['Chunk']
-                chapter_title = row['chapter_title']
-                article_title = row['article_title'] 
+                chunk = row['Chunk'].replace('\r', '').replace('\n', '')
+                chapter_title = row['chapter_title'].replace('\r', '').replace('\n', '')
+                article_title = row['article_title'].replace('\r', '').replace('\n', '')
                 sarticle_position = row['sarticle_position']
+            
                 
                 if pd.isna(sarticle_position):
                     full_article_content = None
                 else:
-                    full_article_content = row['full_article_content']
+                    full_article_content = row['full_article_content'].replace('\r', '').replace('\n', '')
 
-                contextual_content = self.get_context(chunk, chapter_title, article_title, sarticle_position, full_article_content)
-                new_chunk = contextual_content + '\n\n' + chunk
+                #contextual_content = self.get_context(chunk, chapter_title, article_title, sarticle_position, full_article_content)
+                #new_chunk = contextual_content + '\n\n' + chunk
+                new_chunk = article_title + '\n\n' + chunk
                 article_uuid = str(uuid.uuid4())
             
-                
                 contextual_documents.append(
                     Document(
                             text=new_chunk,
@@ -239,7 +238,7 @@ class DocumentIngestionPipeline:
                                 article_id = '',
                                 article_uuid = article_uuid,
                                 article_content = chunk,    
-                                contextualized_article_content = contextual_content
+                                contextualized_article_content = ''
                             )
                         )
                 )
@@ -252,7 +251,7 @@ class DocumentIngestionPipeline:
                                 article_id = '',
                                 article_uuid = article_uuid,
                                 article_content = chunk,
-                                contextualized_article_content = contextual_content,
+                                contextualized_article_content = '',
                         ),
                 )
             ic(len(contextual_documents))

@@ -1,0 +1,27 @@
+Update so với NCKH
+
+- Bổ sung 2 module chính: 
+    + Compact and Refine Response Synthesizer thay vì chỉ sử dụng LLM thuần 
+(for both Document Selection and Contextual Compression)
+    + Sub Question Query Engine: sử dụng như một tool cho OpenAIAgent cho Query Decomposition
+ (for Optimize Query)
+
+- Other:
+    + Bổ sung Context cho mỗi chunk (sử dụng Tên điều như Context)
+    + Thay Reranker: sử dụng GPT Reranker thay vì Cohere Reranker
+    + Đổi Embedding Model: sử dụng model text-embedding-large-v3 thay vì text-embedding-002-ada
+    + Raw Chunk == 1 khoản trong 1 điều
+
+- Hạn chế còn lại: 
+    + Những chunk mang hypertext chưa giải quyết được
+        VD:  
+            16. Ngoài việc bị áp dụng hình thức xử phạt, người điều khiển xe thực hiện hành vi 
+            vi phạm còn bị trừ điểm giấy phép lái xe như sau:
+            a) Thực hiện hành vi quy định tại điểm h, điểm i khoản 3; điểm a, điểm b, điểm c, điểm d, 
+            điểm đ, điểm g khoản 4; điểm a, điểm b, điểm c, điểm d, điểm đ, điểm e, điểm g, điểm i, 
+            điểm k, điểm n, điểm o khoản 5 Điều này bị trừ điểm giấy phép lái xe 02 điểm;
+    + Mặc dù hệ thống cải thiện đáng kể tốc độ, khả năng truy xuất và trả lời, chi phí, trả lời được những case
+    nằm trong văn bản pháp lí được quy định rõ ràng, tuy nhiên trả lời câu hỏi pháp lí có lẽ cần các thông tin 
+    khác như thẩm quyền, thủ tục xử phạt, trừ điểm,..(nằm trong chương 3 NĐ 168/2024) chưa giải quyết được
+    do những thông tin hypertext
+

@@ -10,7 +10,6 @@ from source.settings import Settings as ConfigSettings#, setting as config_setti
 from source.database.elastic import ElasticSearch
 from source.database.qdrant import QdrantVectorDatabase
 from source.logging.log_retrieval import log_retrieval
-#from source.rag.post_processor import MapReducePostProcessor
 
 from qdrant_client import QdrantClient
 from llama_index.llms.openai import OpenAI
@@ -80,7 +79,7 @@ class RetrievalPipeline(BaseRetriever):
         self.retriever = VectorStoreIndex.from_vector_store(
             vector_store=vector_store, 
             storage_context=storage_context,
-            use_async=True).as_retriever()
+            use_async=True).as_retriever(similarity_top_k=100)
       
         
         self.reranker_gpt = RankGPTRerank(
@@ -94,7 +93,7 @@ class RetrievalPipeline(BaseRetriever):
         ic(Settings)
         
     
-    def contextual_search(self, query, k: int = 100):
+    def contextual_search(self, query):
         '''
         Search the query with the contextual RAG (Qdrant)
         
@@ -211,6 +210,7 @@ class RetrievalPipeline(BaseRetriever):
         Inherit from BaseRetriever
         '''
         semantic_results = self.contextual_search(query)
+        ic(len(semantic_results))
         bm25_results = self.bm25_search(query.query_str)
 
         combined_nodes = self.combine_results(
@@ -228,12 +228,12 @@ class RetrievalPipeline(BaseRetriever):
         #     nodes = reranked_nodes
         # )
 
-        # log_retrieval(
-        #     contextual_results=semantic_results,
-        #     bm25_results=bm25_results, 
-        #     combined_results=combined_nodes, 
-        #     reranked_results=reranked_nodes, 
-        #     query=query,
-        #     response=None)
+        log_retrieval(
+            contextual_results=semantic_results,
+            bm25_results=bm25_results, 
+            combined_results=combined_nodes, 
+            reranked_results=reranked_nodes, 
+            query=query,
+            response=None)
 
         return reranked_nodes

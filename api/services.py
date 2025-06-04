@@ -6,24 +6,21 @@ from dotenv import load_dotenv
 from llama_index.core import Settings
 from llama_index.llms.openai import OpenAI
 from llama_index.agent.openai import OpenAIAgent
-from llama_index.core.agent import AgentRunner
 from llama_index.core.tools import FunctionTool
 
 from starlette.responses import StreamingResponse, Response
 
-from source.tools.contextual_rag_tools import (
-    load_contextual_rag_tool
-)
-from source.constants import (
-    SERVICE,
-    TEMPERATURE,
-    MODEL_ID,
-    STREAM,
-    AGENT_TYPE,
-)
+from source.tools.contextual_rag_tool import load_contextual_rag_tool
+from source.tools.sub_question_rag_tool import load_sub_question_rag_tool
+from source.settings import setting
+
+# for async
+import asyncio
+asyncio.set_event_loop_policy(asyncio.DefaultEventLoopPolicy())
+import nest_asyncio
+nest_asyncio.apply()
 
 load_dotenv(override=True)
-
 
 class ChatbotTrafficLawRAG:
     def __init__(self):
@@ -35,9 +32,10 @@ class ChatbotTrafficLawRAG:
         Load default RAG tool.
         """
         contextual_rag_tool = load_contextual_rag_tool()
-        return [contextual_rag_tool]
+        sub_question_rag_tool = load_sub_question_rag_tool()
+        return [contextual_rag_tool, sub_question_rag_tool]
 
-    def load_model(self, service, model_id):
+    def load_model(self):
         '''
         Select a model for text generation using multiple services
         Args:
@@ -48,37 +46,23 @@ class ChatbotTrafficLawRAG:
         Raise:
             ValueError: If the service is not supported
         '''
-        if service == 'openai':
-            return OpenAI(
-                model=model_id,
-                temperature=TEMPERATURE,
-                api_key = os.getenv('OPENAI_API_KEY')
-                )
-        else:
-            raise NotImplementedError(f'Service {service} is not supported')
-
+        return OpenAI(
+            model=setting.model_name,
+            temperature=0.2,
+            api_key = os.getenv('OPENAI_API_KEY')
+        )
 
     def create_query_engine(self):
         '''
-        Create a query engine and confige it for routing queries to approciate tools
-        
-        This method initializes and configures a query engine for routing queries to specialize tool based on the query type
-        It loads a language model along with specific tools for specific tasks such as code search or paper search
-
-        Return:
-            AgentRunner: An instance of AgentRunner configured with the neccessary tools and settings
+        Create a query engine 
         '''
 
-        llm = self.load_model(SERVICE, MODEL_ID)
+        llm = self.load_model()
         Settings.llm = llm
 
-        ic(llm)
-        if AGENT_TYPE == 'openai':
-            query_engine = OpenAIAgent.from_tools(
-                tools = self.tools, verbose = True, llm = llm
-            )
-        else:
-            raise ValueError(f'Agent type {AGENT_TYPE} is not supported')
+        query_engine = OpenAIAgent.from_tools(
+            tools = self.tools, verbose = True, llm = llm
+        )
         
         return query_engine
     
@@ -104,20 +88,8 @@ class ChatbotTrafficLawRAG:
             str: The generated text
         '''
 
-        if STREAM:
-            streaming_response = self.query_engine.stream_chat(prompt)
-
-            async def async_generator():
-                for chunk in streaming_response.response_gen:
-                    yield chunk
-
-            return StreamingResponse(
-                async_generator(), 
-                media_type='application/text; charset=utf8'
-            )
-        else:
-            response = self.query_engine.chat(prompt)
-            return Response(
-                content=response.response,  
-                media_type="application/text; charset=utf8"
-            )
+        response = self.query_engine.chat(prompt)
+        return Response(
+            content=response.response,  
+            media_type="application/text; charset=utf8"
+        )
