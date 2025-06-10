@@ -24,6 +24,8 @@ retriever = RetrievalPipeline()
 llm = OpenAI(
     model=setting.model_name,
     api_key=os.getenv("OPENAI_API_KEY"),
+    logprobs=None,
+    default_headers={},
 )
 
 # 2. Response Synthesizer

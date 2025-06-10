@@ -1,6 +1,6 @@
 from config.config import get_config
 
-cfg = get_config("/workspace/competitions/Sly/Duy_NCKH_2025/config/config.yaml")
+cfg = get_config("/workspace/competitions/Sly/Duy_NCKH_2025_dev/config/config.yaml")
 
 
 CUSTOM_REFINE_PROMPT =  (
@@ -16,8 +16,8 @@ CUSTOM_REFINE_PROMPT =  (
     "Dựa vào thông tin mới, bạn hãy điều chỉnh lại câu trả lời trên **nếu cần thiết**, và đảm bảo tuân thủ cấu trúc trả lời như sau:\n"
     "- Nhắc lại câu hỏi.\n"
     "- Trả lời thẳng vào câu hỏi.\n"
-    "- Ghi rõ điều/khoản/chương/văn bản pháp luật đã tham chiếu.\n"
-    "- Trích dẫn nội dung đầy đủ hoặc súc tích của đoạn luật tương ứng.\n"
+    "- Ghi rõ tên điều/khoản/văn bản pháp luật trong nội dung tham chiếu.\n"
+    "- Trích dẫn nội dung đầy đủ của đoạn luật tương ứng.\n"
     "Nếu thông tin mới không hữu ích, hãy giữ nguyên câu trả lời cũ.\n"
     "Câu trả lời đã chỉnh sửa (nếu có):"
 )
@@ -63,8 +63,8 @@ QA_PROMPT = (
     "{context_str}"
     "\n---------------------\n"
     "Dựa vào thông tin trên, hãy trả lời câu hỏi sau: {query_str}\n\
-    Lưu ý luôn luôn suy nghĩ kĩ trước khi trả lời. Để trả lời câu hỏi vế đầu tiên bạn phải trích dẫn lại ý chính của câu hỏi và trả lời thẳng vào câu hỏi kèm theo vị trí của điều/chương/luật.\
-    Sau đó trích dẫn lại nội dung bạn đã tham chiếu. Nếu không biết hãy trả lời thành thật và không đưa ra thông tin sai lệch"
+    Lưu ý luôn luôn suy nghĩ kĩ trước khi trả lời. Để trả lời câu hỏi vế đầu tiên bạn phải trích dẫn lại ý chính của câu hỏi và trả lời thẳng vào câu hỏi kèm theo tên điều, khoản.\
+    Sau đó trích dẫn lại nội dung bạn đã tham chiếu (tên điều, khoản). Nếu không biết hãy trả lời thành thật và không đưa ra thông tin sai lệch"
 )
 
 # Contextual RAG configuration

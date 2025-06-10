@@ -1,10 +1,3 @@
-'''
-Author: Nguyen Truong Duy
-Purpose: Building ElasticSearch Database
-- Adding test case
-Lastest Update: 18/02/2025
-'''
-
 import sys
 import os
 from pathlib import Path

@@ -4,12 +4,14 @@ CONTEXTUAL_RAG: # config for contextual RAG (contextual chunk, embedding)
 
     # qdrant
     CONTEXTUAL_RAG_COLLECTION_NAME: 'trduy_test3' 
-
     QDRANT_URL: "http://localhost:7333"
-    ELASTIC_SEARCH_URL: "http://localhost:8200"
 
     # elastic
     ELASTIC_SEARCH_INDEX_NAME: 'trduy_test3' 
     SEMANTIC_WEIGHT: 0.8
     BM25_WEIGHT: 0.2
+    ELASTIC_SEARCH_URL: "http://localhost:8200"
 
+    # Redis:
+    REDIS_URL: 'redis://localhost:6379'
+    timetolife: 

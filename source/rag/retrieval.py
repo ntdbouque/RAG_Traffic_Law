@@ -88,10 +88,7 @@ class RetrievalPipeline(BaseRetriever):
             verbose=False,
         )
 
-        #self.map_reduce_postprocessor = MapReducePostProcessor()
-        Settings.node_postprocessors = [self.reranker_gpt]
-        ic(Settings)
-        
+        Settings.node_postprocessors = [self.reranker_gpt]        
     
     def contextual_search(self, query):
         '''
@@ -157,7 +154,7 @@ class RetrievalPipeline(BaseRetriever):
         def get_content_by_doc_id(doc_id: str):
             for node in semantic_results:
                 if node.metadata["article_uuid"] == doc_id:
-                    return 'Vị trí trong tài liệu:' + node.metadata['article_id'] + '\n' + 'Nội dung: ' + node.metadata['original_content']
+                    return node.text
             return ""
         
         semantic_weight = self.setting.semantic_weight
@@ -210,7 +207,6 @@ class RetrievalPipeline(BaseRetriever):
         Inherit from BaseRetriever
         '''
         semantic_results = self.contextual_search(query)
-        ic(len(semantic_results))
         bm25_results = self.bm25_search(query.query_str)
 
         combined_nodes = self.combine_results(

@@ -14,6 +14,8 @@ from source.tools.contextual_rag_tool import load_contextual_rag_tool
 from source.tools.sub_question_rag_tool import load_sub_question_rag_tool
 from source.settings import setting
 
+from llama_index.core.memory import ChatMemoryBuffer
+
 # for async
 import asyncio
 asyncio.set_event_loop_policy(asyncio.DefaultEventLoopPolicy())
@@ -23,8 +25,13 @@ nest_asyncio.apply()
 load_dotenv(override=True)
 
 class ChatbotTrafficLawRAG:
-    def __init__(self):
+    def __init__(self, chat_store, user_session_id):
         self.tools = self.load_tools()
+        self.memory =  ChatMemoryBuffer.from_defaults(
+            token_limit=3000,
+            chat_store=chat_store,
+            chat_store_key=user_session_id,
+        )
         self.query_engine = self.create_query_engine()
 
     def load_tools(self):
@@ -49,7 +56,9 @@ class ChatbotTrafficLawRAG:
         return OpenAI(
             model=setting.model_name,
             temperature=0.2,
-            api_key = os.getenv('OPENAI_API_KEY')
+            api_key = os.getenv('OPENAI_API_KEY'),
+            logprobs=None,
+            default_headers={},
         )
 
     def create_query_engine(self):
@@ -61,7 +70,7 @@ class ChatbotTrafficLawRAG:
         Settings.llm = llm
 
         query_engine = OpenAIAgent.from_tools(
-            tools = self.tools, verbose = True, llm = llm
+            tools = self.tools, verbose = True, llm = llm, memory = self.memory
         )
         
         return query_engine
