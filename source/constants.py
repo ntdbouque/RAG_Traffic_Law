@@ -1,6 +1,6 @@
 from config.config import get_config
 
-cfg = get_config("/workspace/competitions/Sly/Duy_NCKH_2025/config/config.yaml")
+cfg = get_config("./config/config.yaml")
 
 
 CUSTOM_REFINE_PROMPT =  (

@@ -2,7 +2,7 @@ import os
 import time
 from icecream import ic
 
-LOGS_DIR = '/workspace/competitions/Sly/Duy_NCKH_2025/logs'
+LOGS_DIR = './logs'
 
 def ensure_log_dir():
     os.makedirs(LOGS_DIR, exist_ok=True)
