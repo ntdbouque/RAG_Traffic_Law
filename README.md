@@ -63,7 +63,7 @@ Tham khảo notebook trên để đánh giá `retriever` trên một sample và 
 uvicorn app:app --host 0.0.0.0 --port your_port_here --loop asyncio
 ```
 
-### -1. Example Usage:
+### 5. Example Usage:
 
 - **`test_retrieval.py`:** 
 ```python
@@ -96,3 +96,10 @@ my_query_engine = MyQueryEngine(
 )
 response = my_query_engine.query(query)
 ```
+- **`ingest.py:`**
+  ```bash
+  cd source/rag
+  python ingest.py
+  ```
+  
+
