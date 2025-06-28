@@ -97,9 +97,9 @@ my_query_engine = MyQueryEngine(
 response = my_query_engine.query(query)
 ```
 - **`ingest.py:`**
-  ```bash
-  cd source/rag
-  python ingest.py
-  ```
-  
+```bash
+cd source/rag
+python ingest.py
+```
+
 
