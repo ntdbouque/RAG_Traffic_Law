@@ -32,8 +32,8 @@ class ChatbotTrafficLawRAG:
         Load default RAG tool.
         """
         contextual_rag_tool = load_contextual_rag_tool()
-        sub_question_rag_tool = load_sub_question_rag_tool()
-        return [contextual_rag_tool, sub_question_rag_tool]
+        #sub_question_rag_tool = load_sub_question_rag_tool()
+        return [contextual_rag_tool]
 
     def load_model(self):
         '''

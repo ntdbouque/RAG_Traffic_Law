@@ -31,18 +31,6 @@ pip install -r requirements.txt
 ```
 
 ## Usage: 
-
-### 1. `run/run_ingest_from_csv.py` – Thêm ngữ cảnh từ tệp CSV đã được thêm ngữ cảnh
-
-Script này dùng để ingest data đã được xử lí vào file csv
-
-```bash
-python run/run_ingest_from_csv.py \
-  --csv_folder your_folder_contain_csv_file \
-```
-**Parameter:**
-`--csv_folder`: đường dẫn đến folder chứa các file csv cần ingest
-
 ### 2. `run_generating_qa.py` 
 Script này dùng để tạo ra bộ dataset qa để đánh giá khả năng truy vấn
 
@@ -63,7 +51,7 @@ Tham khảo notebook trên để đánh giá `retriever` trên một sample và 
 uvicorn app:app --host 0.0.0.0 --port your_port_here --loop asyncio
 ```
 
-### -1. Example Usage:
+### 5. Example Usage:
 
 - **`test_retrieval.py`:** 
 ```python
@@ -96,3 +84,10 @@ my_query_engine = MyQueryEngine(
 )
 response = my_query_engine.query(query)
 ```
+- **`ingest.py:`**
+```bash
+cd source/rag
+python ingest.py
+```
+
+

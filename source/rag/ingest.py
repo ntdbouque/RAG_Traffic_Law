@@ -262,5 +262,5 @@ class DocumentIngestionPipeline:
 
 if __name__ == '__main__':
     ingestor = DocumentIngestionPipeline(setting)
-    folder_dir = '/workspace/competitions/Sly/Duy_NCKH_2025/sample'
+    folder_dir = './sample'
     ingestor.run_ingest_from_csv(folder_dir)
