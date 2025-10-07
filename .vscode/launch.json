@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: construct_graph_debug.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/experiment/property_graph/debug.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "python": "/home/duy/anaconda3/envs/neo4j/bin/python"
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-'''
+a'''
 Author: Nguyen Truong Duy
 Purpose: Định nghĩa một lớp BaseVectorDatabase, sử dụng module ABC trong Python. 
 Giúp xây dựng một chuẩn chung cho các vector database, bao gồm:

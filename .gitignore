@@ -2,3 +2,6 @@
 help.txt
 logs/*
 data/*
+source/my_utils
+experiment/*
+notebook/*
