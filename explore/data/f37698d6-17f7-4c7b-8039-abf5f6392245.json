@@ -1,0 +1,652 @@
+{
+    "id_": "f37698d6-17f7-4c7b-8039-abf5f6392245",
+    "embedding": null,
+    "metadata": {
+        "law": "Nghị định 168/2024/NĐ-CP",
+        "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+        "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+        "clause": 6.0,
+        "nodes": [
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Nghị định 168/2024/nđ-cp"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Chương ii"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Chương ii"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Hành vi vi phạm"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Chương ii"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Hình thức xử phạt"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Chương ii"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Mức xử phạt"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Chương ii"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Mức trừ điểm giấy phép lái xe"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Chương ii"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Biện pháp khắc phục hậu quả"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Điều 6"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Người điều khiển xe ô tô"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Điều 6"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Xe chở người bốn bánh có gắn động cơ"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Điều 6"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Xe chở hàng bốn bánh có gắn động cơ"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Điều 6"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Các loại xe tương tự xe ô tô"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Người điều khiển xe"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Từ 6.000.000 đồng đến 8.000.000 đồng"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Người điều khiển xe"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Chạy quá tốc độ quy định"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Người điều khiển xe"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Không nhường đường"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Người điều khiển xe"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Gây cản trở xe ưu tiên"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Người điều khiển xe"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Điều khiển xe có nồng độ cồn"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Người điều khiển xe"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Điều khiển xe trên vỉa hè"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Điều khiển xe"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Trên 20 km/h đến 35 km/h"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Điều khiển xe"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Chưa vượt quá 50 miligam/100 mililít máu"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Điều khiển xe"
+            },
+            {
+                "label": "entity",
+                "embedding": null,
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                },
+                "name": "Trừ trường hợp vào nhà hoặc cơ quan"
+            }
+        ],
+        "relations": [
+            {
+                "label": "Includes",
+                "source_id": "Nghị định 168/2024/nđ-cp",
+                "target_id": "Chương ii",
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                }
+            },
+            {
+                "label": "Covers",
+                "source_id": "Chương ii",
+                "target_id": "Hành vi vi phạm",
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                }
+            },
+            {
+                "label": "Covers",
+                "source_id": "Chương ii",
+                "target_id": "Hình thức xử phạt",
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                }
+            },
+            {
+                "label": "Covers",
+                "source_id": "Chương ii",
+                "target_id": "Mức xử phạt",
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                }
+            },
+            {
+                "label": "Covers",
+                "source_id": "Chương ii",
+                "target_id": "Mức trừ điểm giấy phép lái xe",
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                }
+            },
+            {
+                "label": "Covers",
+                "source_id": "Chương ii",
+                "target_id": "Biện pháp khắc phục hậu quả",
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                }
+            },
+            {
+                "label": "Xử phạt",
+                "source_id": "Điều 6",
+                "target_id": "Người điều khiển xe ô tô",
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                }
+            },
+            {
+                "label": "Xử phạt",
+                "source_id": "Điều 6",
+                "target_id": "Xe chở người bốn bánh có gắn động cơ",
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                }
+            },
+            {
+                "label": "Xử phạt",
+                "source_id": "Điều 6",
+                "target_id": "Xe chở hàng bốn bánh có gắn động cơ",
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                }
+            },
+            {
+                "label": "Xử phạt",
+                "source_id": "Điều 6",
+                "target_id": "Các loại xe tương tự xe ô tô",
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                }
+            },
+            {
+                "label": "Phạt tiền",
+                "source_id": "Người điều khiển xe",
+                "target_id": "Từ 6.000.000 đồng đến 8.000.000 đồng",
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                }
+            },
+            {
+                "label": "Vi phạm",
+                "source_id": "Người điều khiển xe",
+                "target_id": "Chạy quá tốc độ quy định",
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                }
+            },
+            {
+                "label": "Vi phạm",
+                "source_id": "Người điều khiển xe",
+                "target_id": "Không nhường đường",
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                }
+            },
+            {
+                "label": "Vi phạm",
+                "source_id": "Người điều khiển xe",
+                "target_id": "Gây cản trở xe ưu tiên",
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                }
+            },
+            {
+                "label": "Vi phạm",
+                "source_id": "Người điều khiển xe",
+                "target_id": "Điều khiển xe có nồng độ cồn",
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                }
+            },
+            {
+                "label": "Vi phạm",
+                "source_id": "Người điều khiển xe",
+                "target_id": "Điều khiển xe trên vỉa hè",
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                }
+            },
+            {
+                "label": "Chạy quá tốc độ",
+                "source_id": "Điều khiển xe",
+                "target_id": "Trên 20 km/h đến 35 km/h",
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                }
+            },
+            {
+                "label": "Có nồng độ cồn",
+                "source_id": "Điều khiển xe",
+                "target_id": "Chưa vượt quá 50 miligam/100 mililít máu",
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                }
+            },
+            {
+                "label": "Đi trên vỉa hè",
+                "source_id": "Điều khiển xe",
+                "target_id": "Trừ trường hợp vào nhà hoặc cơ quan",
+                "properties": {
+                    "law": "Nghị định 168/2024/NĐ-CP",
+                    "chapter": "Chương II\r\n\r\nHÀNH VI VI PHẠM, HÌNH THỨC, MỨC XỬ PHẠT, MỨC TRỪ ĐIỂM GIẤY PHÉP LÁI XE VÀ BIỆN PHÁP KHẮC PHỤC HẬU QUẢ VI PHẠM HÀNH CHÍNH VỀ TRẬT TỰ, AN TOÀN GIAO THÔNG TRONG LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ",
+                    "article": "Điều 6. Xử phạt, trừ điểm giấy phép lái xe của người điều khiển xe ô tô, xe chở người bốn bánh có gắn động cơ, xe chở hàng bốn bánh có gắn động cơ và các loại xe tương tự xe ô tô vi phạm quy tắc giao thông đường bộ",
+                    "clause": 6.0
+                }
+            }
+        ]
+    },
+    "excluded_embed_metadata_keys": [],
+    "excluded_llm_metadata_keys": [],
+    "relationships": {},
+    "metadata_template": "{key}: {value}",
+    "metadata_separator": "\n",
+    "text": "6. Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng đối với người điều khiển xe thực hiện một trong các hành vi vi phạm sau đây:\r\n\r\na) Điều khiển xe chạy quá tốc độ quy định trên 20 km/h đến 35 km/h;\r\n\r\nb) Không nhường đường hoặc gây cản trở xe được quyền ưu tiên đang phát tín hiệu ưu tiên đi làm nhiệm vụ;\r\n\r\nc) Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn nhưng chưa vượt quá 50 miligam/100 mililít máu hoặc chưa vượt quá 0,25 miligam/1 lít khí thở;\r\n\r\nd) Điều khiển xe đi trên vỉa hè, trừ trường hợp điều khiển xe đi qua vỉa hè để vào nhà, cơ quan.",
+    "mimetype": "text/plain",
+    "start_char_idx": null,
+    "end_char_idx": null,
+    "metadata_seperator": "\n",
+    "text_template": "{metadata_str}\n\n{content}"
+}
